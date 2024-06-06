@@ -35,7 +35,10 @@ public class DiaryServiceImpl implements DiaryService {
                         , el.getTitle()
                         , el.getDate()
                         , el.getScope()
-                        , el.getCountry()))
+                        , el.getCountry()
+                        , el.getPhotos()
+                ))
+
         );
         return diaryResponses;
     }
@@ -48,6 +51,7 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setDate(req.date());
         diary.setScope(req.scope());
         diary.setCountry(req.country());
+        diary.setPhotos(req.photos());
     }
 
     @Override

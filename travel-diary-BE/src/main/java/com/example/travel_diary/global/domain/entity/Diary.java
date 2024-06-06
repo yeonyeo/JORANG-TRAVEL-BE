@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -45,4 +46,8 @@ public class Diary {
     @JoinColumn(name = "POST_ID")
     @ManyToOne
     private Post post;
+
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
+    @Setter
+    private List<Photo> photos;
 }
