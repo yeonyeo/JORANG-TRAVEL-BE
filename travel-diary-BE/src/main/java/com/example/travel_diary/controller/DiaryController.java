@@ -15,7 +15,7 @@ public class DiaryController {
     private final DiaryService diaryService;
 
     @PostMapping
-    public void insertDiary(DiaryRequestDto req) {
+    public void insertDiary(@RequestBody DiaryRequestDto req) {
         diaryService.insertDiary(req);
     }
     @GetMapping("/posts/{postId}")
