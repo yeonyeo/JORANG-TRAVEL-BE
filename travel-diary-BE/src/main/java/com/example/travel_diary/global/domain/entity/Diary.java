@@ -24,18 +24,22 @@ public class Diary {
     private Long id;
 
     @Column(name = "TITLE")
+    @Setter
     private String title;
 
     @Column(name = "DATE")
+    @Setter
     private Date date;
 
     @Column(name = "SCOPE")
+    @Setter
     private Scope scope;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
 
     @Column(name = "COUNTRY")
+    @Setter
     private String country;
 
     @JoinColumn(name = "POST_ID")
