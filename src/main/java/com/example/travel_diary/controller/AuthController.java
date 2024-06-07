@@ -1,5 +1,7 @@
 package com.example.travel_diary.controller;
 
+import com.example.travel_diary.global.request.FindLoginIdRequestDto;
+import com.example.travel_diary.global.request.FindPasswordRequestDto;
 import com.example.travel_diary.global.request.SignInRequestDto;
 import com.example.travel_diary.global.request.SignUpRequestDto;
 import com.example.travel_diary.global.response.GetUserByIdResponseDto;
@@ -17,52 +19,57 @@ import java.util.UUID;
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/sign_up")
-    public ResponseEntity<String> signUp(@RequestBody SignUpRequestDto signUpRequestDto){
-        authService.signUp(signUpRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 완료");
+    @PostMapping("/signUp")
+    public ResponseEntity<String> signUp(@RequestBody SignUpRequestDto signUpRequestDto) throws Exception {
+        UUID uuid = authService.signUp(signUpRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 완료"+uuid);
     }
-        
-    @PostMapping("/sign_in")
-    public ResponseEntity<String> signIn(@RequestBody SignInRequestDto signInRequestDto){
+
+    @PostMapping("/signIn")
+    public ResponseEntity<String> signIn(@RequestBody SignInRequestDto signInRequestDto) throws Exception {
         authService.signIn(signInRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body("로그인 완료");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetUserByIdResponseDto> getUserById(@PathVariable UUID id) {
+    public ResponseEntity<GetUserByIdResponseDto> getUserById(@PathVariable(name = "id") UUID id) throws Exception {
         GetUserByIdResponseDto userById = authService.getUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body(userById);
     }
 
+    //    http://localhost:8080/api/v1/auths/318ef9bd-7c16-43f8-8149-6660c93c41c3?type=nickname
+//    body : nickname1change
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUserNickname(@PathVariable UUID id,@RequestParam String nickname){
-        authService.updateUserNickname(nickname);
-        return ResponseEntity.status(HttpStatus.OK).body("닉네임 변경 완료");
+    public ResponseEntity<String> updateUser(@PathVariable(name = "id") UUID id,
+                                             @RequestBody String changeValue,
+                                             @RequestParam(value = "type") String type) throws Exception {
+        if ("nickname".equals(type)) {
+            authService.updateUserNickname(id, changeValue);
+            return ResponseEntity.status(HttpStatus.OK).body("닉네임 변경 완료");
+        } else if ("password".equals(type)) {
+            authService.updateUserPassword(id, changeValue);
+            return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경 완료");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("올바른 요청이 아닙니다.");
+        }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateUserPassword(@PathVariable UUID id,@RequestParam String password){
-        authService.updateUserPassword(password);
-        return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경 완료");
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable UUID id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable(name = "id") UUID id) throws Exception {
         authService.deleteUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body("탈퇴 완료");
     }
 
-//    @PostMapping("/findLoginId")
-//    public ResponseEntity<String> findLoginId(@RequestBody String email){
-//        authService.findLoginId(email);
-//        return ResponseEntity.status(HttpStatus.OK).body("이메일 전송 완료");
-//    }
-//
-//    @PostMapping("/findPassword")
-//    public ResponseEntity<String> findPassword(@RequestBody String loginId){
-//        authService.findPassword(loginId);
-//        return ResponseEntity.status(HttpStatus.OK).body("이메일 전송 완료");
-//    }
+    @PostMapping("/findLoginId")
+    public ResponseEntity<String> findLoginId(@RequestBody FindLoginIdRequestDto findLoginIdRequestDto) throws Exception {
+        authService.findLoginId(findLoginIdRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body("아이디 찾기 이메일 전송 완료");
+    }
+
+    @PostMapping("/findPassword")
+    public ResponseEntity<String> findPassword(@RequestBody FindPasswordRequestDto findPasswordRequestDto) throws Exception {
+        authService.findPassword(findPasswordRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body("비밀번호 찾기 이메일 전송 완료");
+    }
 
 }

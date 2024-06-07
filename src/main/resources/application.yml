@@ -10,4 +10,6 @@ spring:
       ddl-auto: create
     show-sql: true
 
-
+mail:
+  sender: ksh58997941@gmail.com
+  password: yctq gzba uorl gitm

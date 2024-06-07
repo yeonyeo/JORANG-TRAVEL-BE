@@ -1,10 +1,7 @@
 package com.example.travel_diary.global.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -25,8 +22,8 @@ public class User {
     private String loginId;
     @Column(name = "USER_NAME")
     private String name;
-    @Column(name = "USER_NICKNAME")
-    private String nickname;
+    @Column(name = "USER_NICKNAME") @Setter
+    private String nickname; @Setter
     @Column(name = "USER_PASSWORD")
     private String password;
     @Column(name = "USER_DATE_OF_BIRTH")
