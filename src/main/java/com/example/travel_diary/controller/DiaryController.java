@@ -4,9 +4,6 @@ import com.example.travel_diary.global.request.DiaryRequestDto;
 import com.example.travel_diary.global.response.DiaryResponse;
 import com.example.travel_diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/diaries")
