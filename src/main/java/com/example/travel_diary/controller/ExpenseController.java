@@ -5,10 +5,8 @@ import com.example.travel_diary.global.request.ExpenseRequestDto;
 import com.example.travel_diary.global.response.ExpenseResponseDto;
 import com.example.travel_diary.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/v1/Expenses")

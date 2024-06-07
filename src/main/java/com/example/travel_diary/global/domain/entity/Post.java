@@ -31,6 +31,5 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Diary> diaries;
 
-    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
-    private List<Photo> photos;
+
 }
