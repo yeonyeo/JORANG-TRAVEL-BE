@@ -9,14 +9,14 @@ import java.util.UUID;
 public record SignUpRequestDto(
         String loginId, String name, String nickname, String password, LocalDate dateOfBirth, String email
 ) {
-    public User toEntity() {
+    public User toEntity(String encodedPassword) {
         LocalDateTime now = LocalDateTime.now();
         return User.builder()
                 .id(UUID.randomUUID())
                 .loginId(loginId)
                 .name(name)
                 .nickname(nickname)
-                .password(password)
+                .password(encodedPassword)
                 .dateOfBirth(dateOfBirth)
                 .email(email)
                 .createdAt(now)
