@@ -11,6 +11,7 @@ import com.example.travel_diary.global.request.SignInRequestDto;
 import com.example.travel_diary.global.request.SignUpRequestDto;
 import com.example.travel_diary.global.response.GetUserByIdResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +25,15 @@ public class AuthServiceImpl implements com.example.travel_diary.service.AuthSer
     private final UserRepository userRepository;
     private final FindPasswordEmailSender findPasswordEmailSender;
     private final FindLoginIdEmailSender findLoginIdEmailSender;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public UUID signUp(SignUpRequestDto signUpRequestDto) throws Exception {
         Optional<User> byEmail = userRepository.findByEmail(signUpRequestDto.email());
         if (byEmail.isPresent()) throw new Exception("이메일 있음");
-        User entity = signUpRequestDto.toEntity();
+        String encodedPassword = passwordEncoder.encode(signUpRequestDto.password());
+        User entity = signUpRequestDto.toEntity(encodedPassword);
         userRepository.save(entity);
         return entity.getId();
     }
@@ -38,9 +41,10 @@ public class AuthServiceImpl implements com.example.travel_diary.service.AuthSer
     @Override
     @Transactional
     public void signIn(SignInRequestDto signInRequestDto) throws Exception {
-        Optional<User> byLoginId = userRepository.findByLoginId(signInRequestDto.loginId());
-        if (!byLoginId.get().getPassword().equals(signInRequestDto.password()))
+        User user = userRepository.findByLoginId(signInRequestDto.loginId()).orElseThrow(Exception::new);
+        if(!passwordEncoder.matches(signInRequestDto.password(), user.getPassword())) {
             throw new Exception("로그인 실패");
+    }
     }
 
     @Override
@@ -67,7 +71,8 @@ public class AuthServiceImpl implements com.example.travel_diary.service.AuthSer
         Optional<User> byId = userRepository.findById(id);
         if (byId.isEmpty()) throw new Exception("uuid 없음");
         User user = byId.get();
-        user.setPassword(password);
+        String encodedPassword = passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
     }
 
     @Override
@@ -98,8 +103,8 @@ public class AuthServiceImpl implements com.example.travel_diary.service.AuthSer
         if (byId.isEmpty()) throw new Exception("loginId 없음");
         User user = byId.get();
         String passwordGenerator = PasswordGenerator.generateRandomPassword(13);
-
-        user.setPassword(passwordGenerator);
+        String encodedPassword = passwordEncoder.encode(passwordGenerator);
+        user.setPassword(encodedPassword);
         try {
             findPasswordEmailSender.emailSender(user.getNickname(), user.getEmail(), passwordGenerator);
         } catch (Exception e) {
