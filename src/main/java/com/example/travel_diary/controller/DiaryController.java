@@ -1,6 +1,7 @@
 package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Diary;
+import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.request.DiaryRequestDto;
 import com.example.travel_diary.global.response.DiaryResponse;
 import com.example.travel_diary.service.DiaryService;
@@ -16,15 +17,22 @@ import java.util.List;
 public class DiaryController {
     private final DiaryService diaryService;
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long insertDiary(@RequestBody Post post) {
+        return diaryService.insertDiary(post);
+    }
+
     @GetMapping("/posts/{postId}")
     public List<DiaryResponse> getAllByPostId(@PathVariable Long postId) {
         return diaryService.getAllByPostId(postId);
     };
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void insertDiary(@RequestBody DiaryRequestDto req) {
-        diaryService.insertDiary(req);
+
+    @GetMapping("/{id}")
+    public Diary getById(@PathVariable Long id) {
+        return diaryService.getById(id);
     }
+
     @PutMapping("/{id}")
     public void updateDiary(@PathVariable Long id, @RequestBody DiaryRequestDto req) {
         diaryService.updateDiary(id, req);
