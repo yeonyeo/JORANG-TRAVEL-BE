@@ -26,9 +26,9 @@ public class AuthController {
     }
 
     @PostMapping("/signIn")
-    public ResponseEntity<String> signIn(@RequestBody SignInRequestDto signInRequestDto) throws Exception {
-        authService.signIn(signInRequestDto);
-        return ResponseEntity.status(HttpStatus.OK).body("로그인 완료");
+    public String signIn(@RequestBody SignInRequestDto signInRequestDto) throws Exception {
+        return authService.signIn(signInRequestDto);
+//        return ResponseEntity.status(HttpStatus.OK).body("로그인 완료");
     }
 
     @GetMapping("/{id}")

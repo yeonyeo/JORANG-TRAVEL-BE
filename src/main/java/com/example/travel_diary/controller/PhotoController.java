@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/photos")
 @RequiredArgsConstructor
 public class PhotoController {
-    private final PhotoService photoService;
+//    private final PhotoService photoService;
 }

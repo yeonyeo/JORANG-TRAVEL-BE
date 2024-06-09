@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -26,22 +27,23 @@ public class Diary {
     @Column(name = "DIARY_ID")
     private Long id;
 
-    @Column(name = "TITLE")
+    @Column(name = "TITLE", nullable = false)
     @Setter
     private String title;
 
     @Column(name = "DATE")
     @Setter
-    private Date date;
+    private LocalDate date;
 
-    @Column(name = "SCOPE")
+    @Column(name = "SCOPE", nullable = false)
     @Setter
+    @Enumerated(EnumType.STRING)
     private Scope scope;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
 
-    @Column(name = "COUNTRY")
+    @Column(name = "COUNTRY", nullable = false)
     @Setter
     private String country;
 
