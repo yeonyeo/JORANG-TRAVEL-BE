@@ -9,7 +9,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,7 @@ public class DiaryServiceImpl implements DiaryService {
     private final DiaryRepository diaryRepository;
 
     @Override
+    @Transactional
     public void insertDiary(DiaryRequestDto req) {
         diaryRepository.save(req.toEntity());
     }
@@ -29,17 +29,8 @@ public class DiaryServiceImpl implements DiaryService {
         List<Diary> diaries = diaryRepository.findAllByPost_Id(postId)
                 .orElseThrow(IllegalArgumentException::new);
         List<DiaryResponse> diaryResponses = new ArrayList<>();
-        diaries.forEach((el) ->
-                diaryResponses.add(new DiaryResponse(
-                        el.getId()
-                        , el.getTitle()
-                        , el.getDate()
-                        , el.getScope()
-                        , el.getCountry()
-                        , el.getPhotos()
-                ))
-
-        );
+        diaries.forEach((diary) ->
+                diaryResponses.add(DiaryResponse.from(diary)));
         return diaryResponses;
     }
 
@@ -55,7 +46,8 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    @Transactional
+    public void deleteDiaryById(Long id) {
         diaryRepository.deleteById(id);
     }
 }
