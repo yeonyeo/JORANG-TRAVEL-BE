@@ -23,8 +23,8 @@ public class Post {
     @Setter
     private LocalDateTime createdAt;
 
-    @Column(name = "LIKES")
-    private Long likes;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Like> likes;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Diary> diaries;

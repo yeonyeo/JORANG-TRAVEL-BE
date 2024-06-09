@@ -4,6 +4,7 @@ import com.example.travel_diary.global.domain.entity.Like;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.LikeRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class LikeServiceImpl implements LikeService {
     private final PostService postService;
 
     @Override
+    @Transactional
     public int likeComment(User user, Long postId) {
         Optional<Like> like = likeRepository.findByUser_IdAndPost_Id(user.getId(), postId);
         Post post = postService.getById(postId);
