@@ -35,7 +35,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}/likes")
-    public Long getLikes(@PathVariable Long id) {
+    public int getLikes(@PathVariable Long id) {
         return postService.getLikes(id);
     }
 }

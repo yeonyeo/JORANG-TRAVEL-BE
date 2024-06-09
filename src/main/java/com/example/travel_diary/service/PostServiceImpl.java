@@ -14,10 +14,9 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
-    private final LikeService likeService;
-
     // 여행 일지 작성 누르면 바로 post id를 생성 시킴, 업데이트도 작성일자만 갱신
     @Override
+    @Transactional
     public Long createPost() {
         Post post = postRepository.save(Post.builder().createdAt(LocalDateTime.now()).build());
         return post.getId();
@@ -34,12 +33,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         postRepository.deleteById(id);
     }
 
     @Override
-    public Long getLikes(Long id) {
-        return likeService.countLike(id);
+    @Transactional
+    public int getLikes(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return post.getLikes().size();
     }
 }
