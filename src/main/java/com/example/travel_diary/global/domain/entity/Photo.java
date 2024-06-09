@@ -1,10 +1,7 @@
 package com.example.travel_diary.global.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
@@ -20,6 +17,7 @@ public class Photo {
     private Long id;
 
     @Column(name = "PATH")
+    @Setter
     private String path;
 
     @JoinColumn(name = "DIARY_ID")

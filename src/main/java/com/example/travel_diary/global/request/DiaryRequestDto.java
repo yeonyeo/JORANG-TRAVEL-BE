@@ -15,7 +15,7 @@ public record DiaryRequestDto(
         LocalDate date,
         Scope scope,
         String country,
-        List<Photo> photos
+        Post post
 ) {
     public Diary toEntity() {
         return Diary.builder()
@@ -24,7 +24,7 @@ public record DiaryRequestDto(
                 .scope(scope)
                 .country(country)
                 .createdAt(LocalDateTime.now())
-                .photos(photos)
+                .post(post)
                 .build();
     }
 }
