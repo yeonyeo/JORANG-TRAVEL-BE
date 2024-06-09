@@ -1,10 +1,7 @@
 package com.example.travel_diary.global.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +20,7 @@ public class Post {
     private Long id;
 
     @Column(name = "CREATED_AT")
+    @Setter
     private LocalDateTime createdAt;
 
     @Column(name = "LIKES")
