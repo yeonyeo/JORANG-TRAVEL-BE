@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface AuthService {
     UUID signUp(SignUpRequestDto signUpRequestDto) throws Exception;
-    void signIn(SignInRequestDto signInRequestDto) throws Exception;
+    String signIn(SignInRequestDto signInRequestDto) throws Exception;
 
     GetUserByIdResponseDto getUserById(UUID id) throws Exception;
 
