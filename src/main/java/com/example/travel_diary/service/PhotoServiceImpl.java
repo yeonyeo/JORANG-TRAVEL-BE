@@ -17,6 +17,7 @@ public class PhotoServiceImpl implements PhotoService {
     private final DiaryService diaryService;
 
     @Override
+    @Transactional
     public void insert(String path, Long diaryId) {
         Diary diary = diaryService.getById(diaryId);
         photoRepository.save(Photo.builder().path(path).diary(diary).build());
@@ -35,6 +36,7 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         photoRepository.deleteById(id);
     }

@@ -14,7 +14,7 @@ public interface PostService {
     // 삭제
     void deleteById(Long id);
     // 좋아요 수 가져오기
-    Long getLikes(Long id);
+    int getLikes(Long id);
 
 
 }
