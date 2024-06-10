@@ -5,16 +5,17 @@ import com.example.travel_diary.global.domain.entity.Photo;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.type.Scope;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 public record DiaryRequestDto(
         String title,
-        Date date,
+        LocalDate date,
         Scope scope,
         String country,
-        List<Photo> photos
+        Post post
 ) {
     public Diary toEntity() {
         return Diary.builder()
@@ -23,7 +24,7 @@ public record DiaryRequestDto(
                 .scope(scope)
                 .country(country)
                 .createdAt(LocalDateTime.now())
-                .photos(photos)
+                .post(post)
                 .build();
     }
 }

@@ -1,10 +1,7 @@
 package com.example.travel_diary.global.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,17 +16,19 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DIARY_ID")
+    @Column(name = "POST_ID")
     private Long id;
 
     @Column(name = "CREATED_AT")
+    @Setter
     private LocalDateTime createdAt;
 
-    @Column(name = "LIKES")
-    private Long likes;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Like> likes;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Diary> diaries;
 
-
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Expense> expenses;
 }

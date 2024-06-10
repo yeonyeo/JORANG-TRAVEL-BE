@@ -1,13 +1,41 @@
 package com.example.travel_diary.controller;
 
+import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/posts")
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long createPost() {
+        return postService.createPost();
+    }
+
+    @GetMapping
+    public List<Post> getAll() {
+        return postService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Post getById(@PathVariable Long id) {
+        return postService.getById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        postService.deleteById(id);
+    }
+
+    @GetMapping("/{id}/likes")
+    public int getLikes(@PathVariable Long id) {
+        return postService.getLikes(id);
+    }
 }
