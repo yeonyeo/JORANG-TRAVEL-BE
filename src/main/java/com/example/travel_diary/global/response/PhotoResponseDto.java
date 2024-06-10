@@ -6,4 +6,7 @@ public record PhotoResponseDto(
         Long id,
         String path
 ) {
+    public static PhotoResponseDto from(Photo photo) {
+        return new PhotoResponseDto(photo.getId(), photo.getPath());
+    }
 }
