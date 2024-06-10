@@ -1,6 +1,9 @@
 package com.example.travel_diary;
 
+import com.google.cloud.Identity;
+import com.google.cloud.Policy;
 import com.google.cloud.storage.*;
+import com.google.storage.v2.Object;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +13,9 @@ import com.google.cloud.storage.*;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -21,19 +26,22 @@ public class TravelDiaryApplication {
 		SpringApplication.run(TravelDiaryApplication.class, args);
 
 //		Storage storage =  StorageOptions.newBuilder().setProjectId("titanium-vision-424101-s9").build().getService();
-//
 //		// Create a bucket
 //		String bucketName = "jorang"; // Change this to something unique
-////		Bucket bucket = storage.create(BucketInfo.of(bucketName));
-////		System.out.println(bucket.getName());
-//		// Upload a blob to the newly created bucket
-//		BlobId blobId = BlobId.of(bucketName, "image");
-////		BlobId blobId2 = BlobId.of(bucketName, "jinho");
+
+//		Policy originalPolicy = storage.getIamPolicy(bucketName);
+//		storage.setIamPolicy(
+//				bucketName,
+//				originalPolicy
+//						.toBuilder()
+//						.addIdentity(StorageRoles.objectViewer(), Identity.allUsers()) // All users can view
+//						.build());
 //
-//		BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
-//		String imgPath = "C:\\Users\\Playdata\\Pictures\\Screenshots\\tmp.png";
-//
-//		storage.createFrom(blobInfo, Paths.get(imgPath));
+//		System.out.println("Bucket " + bucketName + " is now publicly readable");
+
+//		Bucket bucket = storage.create(BucketInfo.of(bucketName));
+//		System.out.println(bucket.getName());
+
 
 //		Blob blob = storage.create(blobInfo, "Hello Jinho".getBytes(UTF_8));
 //		for (BlobId blobId : blobIds) {

@@ -2,11 +2,13 @@ package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.Photo;
+import com.example.travel_diary.global.response.PhotoResponseDto;
 import com.example.travel_diary.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -17,13 +19,13 @@ public class PhotoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void insert(@RequestBody String path, @RequestBody Long diaryId) {
-        photoService.insert(path, diaryId);
+    public void insert(@RequestBody String[] paths, @PathVariable Long diaryId) throws IOException {
+        photoService.insert(paths, diaryId);
     }
 
     @GetMapping("diaries/{diaryId}")
-    public List<Photo> getByDiary(@PathVariable Long diaryId) {
-        return photoService.getByDiary(diaryId);
+    public List<PhotoResponseDto> getByDiaryId(@PathVariable Long diaryId) {
+        return photoService.getByDiaryId(diaryId);
     }
 
     @PutMapping("{id}")

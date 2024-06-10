@@ -31,7 +31,7 @@ public class CustomSecurityConfig {
         security.userDetailsService(userDetailsService);
 
         security.authorizeHttpRequests(req ->
-            req.requestMatchers("/api/v1/**")
+            req.requestMatchers("/api/v1/auths/signUp", "/api/v1/auths/signIn")
                     .permitAll()
                     .anyRequest()
                     .authenticated()

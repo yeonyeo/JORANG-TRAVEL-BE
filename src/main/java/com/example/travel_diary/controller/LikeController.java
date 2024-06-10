@@ -16,12 +16,13 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/posts/{postId}")
-    public int likeComment(User user, @PathVariable Long postId) {
+    public int likeComment(@AuthenticationPrincipal User user, @PathVariable Long postId) {
+//        if(user.) throw new IllegalArgumentException("로그인 필요");
         return likeService.likeComment(user, postId);
     }
 
     @GetMapping("/posts")
-    public List<Like> getPosts(User user) {
+    public List<Like> getPosts(@AuthenticationPrincipal User user) {
         return likeService.getPosts(user);
     }
 
