@@ -1,9 +1,11 @@
 package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Post;
+import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class PostController {
     private final PostService postService;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long createPost() {
-        return postService.createPost();
+    public Long createPost(@AuthenticationPrincipal User user) {
+        return postService.createPost(user);
     }
 
     @GetMapping

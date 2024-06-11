@@ -1,6 +1,7 @@
 package com.example.travel_diary.service;
 
 import com.example.travel_diary.global.domain.entity.Post;
+import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class PostServiceImpl implements PostService {
     // 여행 일지 작성 누르면 바로 post id를 생성 시킴, 업데이트도 작성일자만 갱신
     @Override
     @Transactional
-    public Long createPost() {
-        Post post = postRepository.save(Post.builder().createdAt(LocalDateTime.now()).build());
+    public Long createPost(User user) {
+        Post post = postRepository.save(Post.builder().createdAt(LocalDateTime.now()).user(user).build());
         return post.getId();
     }
 
