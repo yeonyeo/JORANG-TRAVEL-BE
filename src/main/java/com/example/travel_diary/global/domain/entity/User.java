@@ -36,7 +36,8 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "USER_CREATED_AT")
     private LocalDateTime createdAt;
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> posts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
