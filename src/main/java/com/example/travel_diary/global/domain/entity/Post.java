@@ -31,4 +31,8 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Expense> expenses;
+
+    @JoinColumn(name = "USER_ID")
+    @ManyToOne
+    private User user;
 }
