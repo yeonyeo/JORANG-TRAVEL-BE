@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.List;
 
 public interface PhotoService {
-
     // 저장
-    void insert(String[] paths, Long diaryId) throws IOException;
+    void insert(String[] paths, Long diaryDetailId) throws IOException;
+    Photo getById(Long id);
     // 여행기별 사진 가져오기
-    List<PhotoResponseDto> getByDiaryId(Long diaryId);
+    List<Photo> getByDiaryDetailId(Long diaryDetailId);
     // 사진 수정
     void update(Long id, String path);
     // 삭제

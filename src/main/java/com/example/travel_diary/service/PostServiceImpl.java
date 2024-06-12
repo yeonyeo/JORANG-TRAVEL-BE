@@ -3,8 +3,11 @@ package com.example.travel_diary.service;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.PostRepository;
+import com.example.travel_diary.global.response.PostResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,8 +27,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAll() {
-        return postRepository.findAll();
+    public List<PostResponse> getAll() {
+        List<Post> posts = postRepository.findAll();
+        return posts.stream().map(PostResponse::from).toList();
     }
 
     @Override
@@ -39,10 +43,4 @@ public class PostServiceImpl implements PostService {
         postRepository.deleteById(id);
     }
 
-    @Override
-    @Transactional
-    public int getLikes(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-        return post.getLikes().size();
-    }
 }

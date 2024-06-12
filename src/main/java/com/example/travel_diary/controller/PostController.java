@@ -2,10 +2,14 @@ package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
+import com.example.travel_diary.global.response.PostResponse;
 import com.example.travel_diary.service.PostService;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +21,13 @@ public class PostController {
     private final PostService postService;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+//    @RolesAllowed("USER")
     public Long createPost(@AuthenticationPrincipal User user) {
         return postService.createPost(user);
     }
 
     @GetMapping
-    public List<Post> getAll() {
+    public List<PostResponse> getAll() {
         return postService.getAll();
     }
 
@@ -36,8 +41,4 @@ public class PostController {
         postService.deleteById(id);
     }
 
-    @GetMapping("/{id}/likes")
-    public int getLikes(@PathVariable Long id) {
-        return postService.getLikes(id);
-    }
 }

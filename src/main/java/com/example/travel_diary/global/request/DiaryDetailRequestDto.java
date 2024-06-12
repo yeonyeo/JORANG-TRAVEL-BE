@@ -1,30 +1,27 @@
 package com.example.travel_diary.global.request;
 
 import com.example.travel_diary.global.domain.entity.Diary;
-import com.example.travel_diary.global.domain.entity.Photo;
+import com.example.travel_diary.global.domain.entity.DiaryDetail;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.type.Scope;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
-public record DiaryRequestDto(
+public record DiaryDetailRequestDto(
         String title,
-        LocalDate date,
+        String content,
         Scope scope,
-        String country,
-        Post post
+        String country
 ) {
-    public Diary toEntity() {
-        return Diary.builder()
+    public DiaryDetail toEntity(Diary diary) {
+        return DiaryDetail.builder()
                 .title(title)
-                .date(date)
+                .content(content)
                 .scope(scope)
                 .country(country)
                 .createdAt(LocalDateTime.now())
-                .post(post)
+                .diary(diary)
                 .build();
     }
 }

@@ -4,14 +4,10 @@ package com.example.travel_diary.service;
 import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.repository.DiaryRepository;
-import com.example.travel_diary.global.request.DiaryRequestDto;
-import com.example.travel_diary.global.response.DiaryResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,15 +15,16 @@ import java.util.List;
 public class DiaryServiceImpl implements DiaryService {
 
     private final DiaryRepository diaryRepository;
-    private final PostService postService;
+    private final DiaryDetailService diaryDetailService;
 
-    // diary 생성 버튼 누르자마자 DB에 넣고 id 생성 -> photo에 post id를 할당해주기 위함
-    // 실제 data 추가는 update에서 진행
     @Override
     @Transactional
-    public Long insertDiary(Post post) {
-        Diary diary = diaryRepository.save(Diary.builder().createdAt(LocalDateTime.now()).post(post).build());
-        return diary.getId();
+    public Long createDiary(Long postId) {
+        Post post = Post.builder().id(postId).build();
+        Diary diary = Diary.builder().post(post).build();
+        Long diaryId = diaryRepository.save(diary).getId();
+
+        return diaryDetailService.create(diaryId);
     }
 
     @Override
@@ -36,23 +33,15 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
-    public List<DiaryResponse> getAllByPostId(Long postId) {
-        List<Diary> diaries = diaryRepository.findAllByPost_Id(postId)
-                .orElseThrow(IllegalArgumentException::new);
-        List<DiaryResponse> diaryResponses = new ArrayList<>();
-        diaries.forEach((diary) ->
-                diaryResponses.add(DiaryResponse.from(diary)));
-        return diaryResponses;
+    public List<Diary> getAllByPostId(Long postId) {
+        return diaryRepository.findAllByPost_Id(postId);
     }
 
     @Override
     @Transactional
-    public void updateDiary(Long id, DiaryRequestDto req) {
+    public void updateDiary(Long id, LocalDate date) {
         Diary diary = diaryRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-        diary.setTitle(req.title());
-        diary.setDate(req.date());
-        diary.setScope(req.scope());
-        diary.setCountry(req.country());
+        diary.setDate(date);
     }
 
     @Override

@@ -1,10 +1,8 @@
 package com.example.travel_diary.service;
 
-
-import com.example.travel_diary.global.domain.entity.Diary;
+import com.example.travel_diary.global.domain.entity.DiaryDetail;
 import com.example.travel_diary.global.domain.entity.Photo;
 import com.example.travel_diary.global.domain.repository.PhotoRepository;
-import com.example.travel_diary.global.response.PhotoResponseDto;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
@@ -21,26 +19,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PhotoServiceImpl implements PhotoService {
     private final PhotoRepository photoRepository;
-    private final DiaryService diaryService;
 
     @Override
-    public void insert(String[] paths, Long diaryId) throws IOException {
+    @Transactional
+    public void insert(String[] paths, Long diaryDetailId) throws IOException {
         Storage storage =  StorageOptions.newBuilder().setProjectId("titanium-vision-424101-s9").build().getService();
         String bucketName = "jorang";
-        Diary diary = diaryService.getById(diaryId);
+        DiaryDetail diaryDetail = DiaryDetail.builder().id(diaryDetailId).build();
         for (int i = 0; i < paths.length; i++) {
-            BlobId blobId = BlobId.of(bucketName, "diary/" + diaryId + "/image" + (i+1));
+            BlobId blobId = BlobId.of(bucketName, "diaryDetail/" + diaryDetailId + "/image" + (i+1));
             BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
             storage.createFrom(blobInfo, Paths.get(paths[i]));
             String googlePath = storage.get(blobId).getMediaLink();
-            photoRepository.save(Photo.builder().path(googlePath).diary(diary).build());
+            photoRepository.save(Photo.builder().path(googlePath).diaryDetail(diaryDetail).build());
         }
     }
 
     @Override
-    public List<PhotoResponseDto> getByDiaryId(Long diaryId) {
-        List<Photo> photos = photoRepository.findAllByDiary_Id(diaryId);
-        return photos.stream().map(PhotoResponseDto::from).toList();
+    public Photo getById(Long id) {
+        return photoRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
+    public List<Photo> getByDiaryDetailId(Long diaryDetailId) {
+        return photoRepository.findAllByDiary_Id(diaryDetailId);
     }
 
     @Override

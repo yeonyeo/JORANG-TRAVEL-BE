@@ -23,17 +23,22 @@ public class PhotoController {
         photoService.insert(paths, diaryId);
     }
 
-    @GetMapping("diaries/{diaryId}")
-    public List<PhotoResponseDto> getByDiaryId(@PathVariable Long diaryId) {
-        return photoService.getByDiaryId(diaryId);
+    @GetMapping("/{id}")
+    public Photo getById(@PathVariable Long id) {
+        return photoService.getById(id);
     }
 
-    @PutMapping("{id}")
+    @GetMapping("/diaryDetail/{diaryDetailId}")
+    public List<Photo> getByDiaryDetailId(@PathVariable Long diaryDetailId) {
+        return photoService.getByDiaryDetailId(diaryDetailId);
+    }
+
+    @PutMapping("/{id}")
     public void update(@PathVariable Long id, @RequestBody String path) {
         photoService.update(id, path);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         photoService.deleteById(id);
     }

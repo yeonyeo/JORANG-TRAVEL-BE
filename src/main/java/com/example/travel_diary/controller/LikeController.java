@@ -2,6 +2,7 @@ package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Like;
 import com.example.travel_diary.global.domain.entity.User;
+import com.example.travel_diary.global.response.LikeResponse;
 import com.example.travel_diary.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,7 +23,7 @@ public class LikeController {
     }
 
     @GetMapping("/posts")
-    public List<Like> getPosts(@AuthenticationPrincipal User user) {
+    public List<LikeResponse> getPosts(@AuthenticationPrincipal User user) {
         return likeService.getPosts(user);
     }
 

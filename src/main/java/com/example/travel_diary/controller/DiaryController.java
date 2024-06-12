@@ -1,14 +1,11 @@
 package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Diary;
-import com.example.travel_diary.global.domain.entity.Post;
-import com.example.travel_diary.global.request.DiaryRequestDto;
-import com.example.travel_diary.global.response.DiaryResponse;
 import com.example.travel_diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,12 +16,12 @@ public class DiaryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long insertDiary(@RequestBody Post post) {
-        return diaryService.insertDiary(post);
+    public Long createDiary(@RequestBody Long postId) {
+        return diaryService.createDiary(postId);
     }
 
     @GetMapping("/posts/{postId}")
-    public List<DiaryResponse> getAllByPostId(@PathVariable Long postId) {
+    public List<Diary> getAllByPostId(@PathVariable Long postId) {
         return diaryService.getAllByPostId(postId);
     };
 
@@ -34,8 +31,8 @@ public class DiaryController {
     }
 
     @PutMapping("/{id}")
-    public void updateDiary(@PathVariable Long id, @RequestBody DiaryRequestDto req) {
-        diaryService.updateDiary(id, req);
+    public void updateDiary(@PathVariable Long id, @RequestBody LocalDate date) {
+        diaryService.updateDiary(id, date);
     };
     @DeleteMapping("/{id}")
     public void deleteDiaryById(@PathVariable Long id) {

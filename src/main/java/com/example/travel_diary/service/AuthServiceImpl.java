@@ -37,7 +37,9 @@ public class AuthServiceImpl implements com.example.travel_diary.service.AuthSer
 
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-        return userRepository.findByLoginId(loginId).orElseThrow(IllegalArgumentException::new);
+        UserDetails user = userRepository.findByLoginId(loginId).orElseThrow(IllegalArgumentException::new);
+        System.out.println(user);
+        return user;
     }
 
     @Override
