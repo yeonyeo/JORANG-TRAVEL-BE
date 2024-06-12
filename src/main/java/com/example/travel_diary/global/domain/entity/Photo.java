@@ -23,7 +23,7 @@ public class Photo {
     private String path;
 
     @JsonBackReference
-    @JoinColumn(name = "DIARY_DETAIL_ID")
+    @JoinColumn(name = "DIARY_ID")
     @ManyToOne
-    private DiaryDetail diaryDetail;
+    private Diary diary;
 }

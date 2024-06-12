@@ -1,6 +1,5 @@
 package com.example.travel_diary.global.domain.repository;
 
-import com.example.travel_diary.global.domain.entity.DiaryDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

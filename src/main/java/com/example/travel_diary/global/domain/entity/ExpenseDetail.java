@@ -6,12 +6,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "EXPENSE_DETAILS")
-public class ExpenseDetail {
-
-}
+//@Entity
+//@Getter
+//@Builder
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Table(name = "EXPENSE_DETAILS")
+//public class ExpenseDetail {
+//
+//}

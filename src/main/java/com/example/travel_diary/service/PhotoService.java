@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface PhotoService {
     // 저장
-    void insert(String[] paths, Long diaryDetailId) throws IOException;
+    void insert(String[] paths, Long diaryId) throws IOException;
     Photo getById(Long id);
     // 여행기별 사진 가져오기
-    List<Photo> getByDiaryDetailId(Long diaryDetailId);
+    List<Photo> getByDiaryId(Long diaryId);
     // 사진 수정
     void update(Long id, String path);
     // 삭제

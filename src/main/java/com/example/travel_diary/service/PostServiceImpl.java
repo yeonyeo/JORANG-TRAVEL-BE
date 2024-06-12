@@ -21,15 +21,14 @@ public class PostServiceImpl implements PostService {
     // 여행 일지 작성 누르면 바로 post id를 생성 시킴, 업데이트도 작성일자만 갱신
     @Override
     @Transactional
-    public Long createPost(User user) {
+    public Long createPost(@AuthenticationPrincipal User user) {
         Post post = postRepository.save(Post.builder().createdAt(LocalDateTime.now()).user(user).build());
         return post.getId();
     }
 
     @Override
-    public List<PostResponse> getAll() {
-        List<Post> posts = postRepository.findAll();
-        return posts.stream().map(PostResponse::from).toList();
+    public List<Post> getAll() {
+        return postRepository.findAll();
     }
 
     @Override

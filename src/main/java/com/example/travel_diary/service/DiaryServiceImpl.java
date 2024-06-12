@@ -15,16 +15,13 @@ import java.util.List;
 public class DiaryServiceImpl implements DiaryService {
 
     private final DiaryRepository diaryRepository;
-    private final DiaryDetailService diaryDetailService;
 
     @Override
     @Transactional
     public Long createDiary(Long postId) {
         Post post = Post.builder().id(postId).build();
         Diary diary = Diary.builder().post(post).build();
-        Long diaryId = diaryRepository.save(diary).getId();
-
-        return diaryDetailService.create(diaryId);
+        return diaryRepository.save(diary).getId();
     }
 
     @Override

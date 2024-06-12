@@ -1,6 +1,6 @@
 package com.example.travel_diary.service;
 
-import com.example.travel_diary.global.domain.entity.DiaryDetail;
+import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.Photo;
 import com.example.travel_diary.global.domain.repository.PhotoRepository;
 import com.google.cloud.storage.BlobId;
@@ -22,16 +22,16 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Override
     @Transactional
-    public void insert(String[] paths, Long diaryDetailId) throws IOException {
+    public void insert(String[] paths, Long diaryId) throws IOException {
         Storage storage =  StorageOptions.newBuilder().setProjectId("titanium-vision-424101-s9").build().getService();
         String bucketName = "jorang";
-        DiaryDetail diaryDetail = DiaryDetail.builder().id(diaryDetailId).build();
+        Diary diary = Diary.builder().id(diaryId).build();
         for (int i = 0; i < paths.length; i++) {
-            BlobId blobId = BlobId.of(bucketName, "diaryDetail/" + diaryDetailId + "/image" + (i+1));
+            BlobId blobId = BlobId.of(bucketName, "diary/" + diaryId + "/image" + (i+1));
             BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
             storage.createFrom(blobInfo, Paths.get(paths[i]));
             String googlePath = storage.get(blobId).getMediaLink();
-            photoRepository.save(Photo.builder().path(googlePath).diaryDetail(diaryDetail).build());
+            photoRepository.save(Photo.builder().path(googlePath).diary(diary).build());
         }
     }
 
@@ -41,8 +41,8 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
-    public List<Photo> getByDiaryDetailId(Long diaryDetailId) {
-        return photoRepository.findAllByDiary_Id(diaryDetailId);
+    public List<Photo> getByDiaryId(Long diaryId) {
+        return photoRepository.findAllByDiary_Id(diaryId);
     }
 
     @Override

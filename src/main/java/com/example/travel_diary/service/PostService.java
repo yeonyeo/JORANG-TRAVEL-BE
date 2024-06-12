@@ -11,7 +11,7 @@ public interface PostService {
     // 생성
     Long createPost(User user);
     // 전부 가져오기
-    List<PostResponse> getAll();
+    List<Post> getAll();
     // 한 개 가져오기
     Post getById(Long id);
     // 삭제

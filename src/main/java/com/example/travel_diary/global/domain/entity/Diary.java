@@ -40,6 +40,6 @@ public class Diary {
 
     @JsonManagedReference
     @OneToOne(mappedBy = "diary", cascade = CascadeType.ALL)
-    private List<DiaryDetail> diaryDetails;
+    private List<Photo> photos;
 
 }

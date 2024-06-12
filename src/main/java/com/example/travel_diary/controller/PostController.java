@@ -27,7 +27,7 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostResponse> getAll() {
+    public List<Post> getAll() {
         return postService.getAll();
     }
 

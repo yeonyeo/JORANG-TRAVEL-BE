@@ -17,7 +17,7 @@ import java.util.List;
 public class PhotoController {
     private final PhotoService photoService;
 
-    @PostMapping
+    @PostMapping("/diary/{diaryId}")
     @ResponseStatus(HttpStatus.CREATED)
     public void insert(@RequestBody String[] paths, @PathVariable Long diaryId) throws IOException {
         photoService.insert(paths, diaryId);
@@ -28,9 +28,9 @@ public class PhotoController {
         return photoService.getById(id);
     }
 
-    @GetMapping("/diaryDetail/{diaryDetailId}")
-    public List<Photo> getByDiaryDetailId(@PathVariable Long diaryDetailId) {
-        return photoService.getByDiaryDetailId(diaryDetailId);
+    @GetMapping("/diary/{diaryId}")
+    public List<Photo> getByDiaryDetailId(@PathVariable Long diaryId) {
+        return photoService.getByDiaryId(diaryId);
     }
 
     @PutMapping("/{id}")
