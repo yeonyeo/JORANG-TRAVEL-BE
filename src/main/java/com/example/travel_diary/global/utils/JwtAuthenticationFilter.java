@@ -20,22 +20,18 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String bearerToken = jwtUtil.resolveToken(request);
-        if (bearerToken.startsWith("bearer ")) {
+        if (bearerToken.startsWith("Bearer ")) {
             String token = bearerToken.substring(7);
-            try {
-                if (jwtUtil.validateToken(token)) {
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(jwtUtil.getLoginIdFromToken(token));
-                    Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            } catch (Exception e) {
-                throw new IllegalArgumentException("A token type should be 'bearer'");
+            if (jwtUtil.validateToken(token)) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(jwtUtil.getLoginIdFromToken(token));
+                Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
         filterChain.doFilter(request, response);

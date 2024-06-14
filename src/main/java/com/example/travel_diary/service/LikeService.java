@@ -3,6 +3,7 @@ package com.example.travel_diary.service;
 import com.example.travel_diary.global.domain.entity.Like;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
+import com.example.travel_diary.global.response.LikeResponse;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface LikeService {
     int likeComment(User user, Long postId);
 
     // 특정 user가 좋아요 누른 post id 목록 뽑기 (찜한 목록에 사용)
-    List<Like> getPosts(User user);
+    List<LikeResponse> getPosts(User user);
 
     // 특정 post 에 눌린 좋아요 수 뽑기
     Long countLike(Long postId);

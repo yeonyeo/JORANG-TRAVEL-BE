@@ -1,5 +1,7 @@
 package com.example.travel_diary.global.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,10 +18,15 @@ public class Photo {
     @Column(name = "PHOTO_ID")
     private Long id;
 
-    @Column(name = "PATH")
+    @Column(name = "STORAGE_PATH")
     @Setter
-    private String path;
+    private String storagePath;
 
+    @Column(name = "PHOTO_URL")
+    @Setter
+    private String photoURL;
+
+    @JsonBackReference
     @JoinColumn(name = "DIARY_ID")
     @ManyToOne
     private Diary diary;

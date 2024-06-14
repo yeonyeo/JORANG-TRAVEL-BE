@@ -32,19 +32,34 @@ public class JwtUtil {
 
     // Token에서 login id 추출
     public String getLoginIdFromToken(String token) {
-        Claims payload = (Claims) Jwts.parser().verifyWith(secretKey).build().parse(token).getPayload();
-        return payload.getSubject();
+        try {
+            Claims payload = (Claims) Jwts.parser().verifyWith(secretKey).build().parse(token).getPayload();
+            System.out.println(payload.getSubject());
+            return payload.getSubject();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Cannot parse token");
+        }
+
     }
 
 
     // Header에서 Token 값 추출
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("Authorization");
+        try {
+            return request.getHeader("Authorization");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Cannot get token from header");
+        }
     }
 
     // token 이 만료 되지 않았는지?
     public boolean validateToken(String token) {
-        Claims payload = (Claims) Jwts.parser().verifyWith(secretKey).build().parse(token).getPayload();
-        return payload.getExpiration().after(new Date());
+        try {
+            Claims payload = (Claims) Jwts.parser().verifyWith(secretKey).build().parse(token).getPayload();
+            return payload.getExpiration().after(new Date());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Token is not valid");
+        }
+
     }
 }

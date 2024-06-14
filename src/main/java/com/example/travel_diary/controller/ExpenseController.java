@@ -5,6 +5,7 @@ import com.example.travel_diary.global.request.ExpenseRequestDto;
 import com.example.travel_diary.global.response.ExpenseResponseDto;
 import com.example.travel_diary.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +15,7 @@ public class ExpenseController {
     private final ExpenseService expenseService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody ExpenseRequestDto req) {
         expenseService.saveExpense(req);
     }

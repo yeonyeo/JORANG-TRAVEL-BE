@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
-    Optional<List<Diary>> findAllByPost_Id(Long postId);
+    List<Diary> findAllByPost_Id(Long postId);
 }
