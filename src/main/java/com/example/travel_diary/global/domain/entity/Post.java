@@ -1,5 +1,6 @@
 package com.example.travel_diary.global.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,7 +45,7 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Expense> expenses;
 
-
+    @JsonBackReference
     @JoinColumn(name = "USER_ID")
     @ManyToOne
     private User user;

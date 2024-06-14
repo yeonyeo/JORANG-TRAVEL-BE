@@ -29,9 +29,30 @@ public class Diary {
     @Column(name = "DIARY_ID")
     private Long id;
 
+    @Column(name = "TITLE")
+    @Setter
+    private String title;
+
+    @Column(name = "CONTENT")
+    @Setter
+    private String content;
+
     @Column(name = "DATE")
     @Setter
     private LocalDate date;
+
+    @Column(name = "SCOPE")
+    @Setter
+    @Enumerated(EnumType.STRING)
+    private Scope scope;
+
+    @Column(name = "CREATED_AT")
+    @Setter
+    private LocalDateTime createdAt;
+
+    @Column(name = "COUNTRY")
+    @Setter
+    private String country;
 
     @JsonBackReference
     @JoinColumn(name = "POST_ID")
@@ -39,7 +60,6 @@ public class Diary {
     private Post post;
 
     @JsonManagedReference
-    @OneToOne(mappedBy = "diary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<Photo> photos;
-
 }

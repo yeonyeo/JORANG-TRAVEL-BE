@@ -1,6 +1,7 @@
 package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Diary;
+import com.example.travel_diary.global.request.DiaryRequestDto;
 import com.example.travel_diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,9 @@ import java.util.List;
 public class DiaryController {
     private final DiaryService diaryService;
 
-    @PostMapping
+    @PostMapping("/posts/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long createDiary(@RequestBody Long postId) {
+    public Long createDiary(@PathVariable Long postId) {
         return diaryService.createDiary(postId);
     }
 
@@ -31,8 +32,8 @@ public class DiaryController {
     }
 
     @PutMapping("/{id}")
-    public void updateDiary(@PathVariable Long id, @RequestBody LocalDate date) {
-        diaryService.updateDiary(id, date);
+    public void updateDiary(@PathVariable Long id, @RequestBody DiaryRequestDto req) {
+        diaryService.updateDiary(id, req);
     };
     @DeleteMapping("/{id}")
     public void deleteDiaryById(@PathVariable Long id) {

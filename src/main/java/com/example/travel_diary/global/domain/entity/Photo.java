@@ -18,9 +18,13 @@ public class Photo {
     @Column(name = "PHOTO_ID")
     private Long id;
 
-    @Column(name = "PATH")
+    @Column(name = "STORAGE_PATH")
     @Setter
-    private String path;
+    private String storagePath;
+
+    @Column(name = "PHOTO_URL")
+    @Setter
+    private String photoURL;
 
     @JsonBackReference
     @JoinColumn(name = "DIARY_ID")

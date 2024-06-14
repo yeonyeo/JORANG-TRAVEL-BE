@@ -1,8 +1,7 @@
 package com.example.travel_diary.controller;
 
-import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.Photo;
-import com.example.travel_diary.global.response.PhotoResponseDto;
+import com.example.travel_diary.global.request.PhotoRequestDto;
 import com.example.travel_diary.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +18,8 @@ public class PhotoController {
 
     @PostMapping("/diary/{diaryId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void insert(@RequestBody String[] paths, @PathVariable Long diaryId) throws IOException {
-        photoService.insert(paths, diaryId);
+    public void insert(@RequestBody PhotoRequestDto req, @PathVariable Long diaryId) throws IOException {
+        photoService.insert(req, diaryId);
     }
 
     @GetMapping("/{id}")
@@ -34,7 +33,7 @@ public class PhotoController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody String path) {
+    public void update(@PathVariable Long id, @RequestBody String path) throws IOException {
         photoService.update(id, path);
     }
 
@@ -43,3 +42,4 @@ public class PhotoController {
         photoService.deleteById(id);
     }
 }
+

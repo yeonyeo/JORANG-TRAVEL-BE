@@ -4,10 +4,12 @@ package com.example.travel_diary.service;
 import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.repository.DiaryRepository;
+import com.example.travel_diary.global.request.DiaryRequestDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,9 +38,14 @@ public class DiaryServiceImpl implements DiaryService {
 
     @Override
     @Transactional
-    public void updateDiary(Long id, LocalDate date) {
+    public void updateDiary(Long id, DiaryRequestDto req) {
         Diary diary = diaryRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-        diary.setDate(date);
+        diary.setTitle(req.title());
+        diary.setContent(req.content());
+        diary.setScope(req.scope());
+        diary.setDate(req.date());
+        diary.setCountry(req.country());
+        diary.setCreatedAt(LocalDateTime.now());
     }
 
     @Override
