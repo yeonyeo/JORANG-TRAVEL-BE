@@ -1,5 +1,6 @@
 package com.example.travel_diary.global.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,7 @@ public class Like {
     @ManyToOne
     User user;
 
+    @JsonBackReference
     @JoinColumn(name = "POST_ID")
     @ManyToOne
     Post post;

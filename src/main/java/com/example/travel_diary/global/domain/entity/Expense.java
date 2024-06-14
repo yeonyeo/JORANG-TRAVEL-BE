@@ -1,5 +1,6 @@
 package com.example.travel_diary.global.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -46,6 +47,7 @@ public class Expense {
     @Column(name = "COUNTRY")
     private String country;
 
+    @JsonBackReference
     @JoinColumn (name = "POST_ID")
     @ManyToOne
     private Post post;

@@ -1,14 +1,12 @@
 package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Diary;
-import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.request.DiaryRequestDto;
-import com.example.travel_diary.global.response.DiaryResponse;
 import com.example.travel_diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -17,14 +15,14 @@ import java.util.List;
 public class DiaryController {
     private final DiaryService diaryService;
 
-    @PostMapping
+    @PostMapping("/posts/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long insertDiary(@RequestBody Post post) {
-        return diaryService.insertDiary(post);
+    public Long createDiary(@PathVariable Long postId) {
+        return diaryService.createDiary(postId);
     }
 
     @GetMapping("/posts/{postId}")
-    public List<DiaryResponse> getAllByPostId(@PathVariable Long postId) {
+    public List<Diary> getAllByPostId(@PathVariable Long postId) {
         return diaryService.getAllByPostId(postId);
     };
 

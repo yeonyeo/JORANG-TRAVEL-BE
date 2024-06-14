@@ -1,6 +1,8 @@
 package com.example.travel_diary.global.domain.entity;
 
 import com.example.travel_diary.global.domain.type.Scope;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -27,31 +29,37 @@ public class Diary {
     @Column(name = "DIARY_ID")
     private Long id;
 
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "TITLE")
     @Setter
     private String title;
+
+    @Column(name = "CONTENT")
+    @Setter
+    private String content;
 
     @Column(name = "DATE")
     @Setter
     private LocalDate date;
 
-    @Column(name = "SCOPE", nullable = false)
+    @Column(name = "SCOPE")
     @Setter
     @Enumerated(EnumType.STRING)
     private Scope scope;
 
     @Column(name = "CREATED_AT")
+    @Setter
     private LocalDateTime createdAt;
 
-    @Column(name = "COUNTRY", nullable = false)
+    @Column(name = "COUNTRY")
     @Setter
     private String country;
 
+    @JsonBackReference
     @JoinColumn(name = "POST_ID")
     @ManyToOne
     private Post post;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
-    @Setter
     private List<Photo> photos;
 }

@@ -1,8 +1,7 @@
 package com.example.travel_diary.controller;
 
-import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.Photo;
-import com.example.travel_diary.global.response.PhotoResponseDto;
+import com.example.travel_diary.global.request.PhotoRequestDto;
 import com.example.travel_diary.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,24 +16,30 @@ import java.util.List;
 public class PhotoController {
     private final PhotoService photoService;
 
-    @PostMapping
+    @PostMapping("/diary/{diaryId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void insert(@RequestBody String[] paths, @PathVariable Long diaryId) throws IOException {
-        photoService.insert(paths, diaryId);
+    public void insert(@RequestBody PhotoRequestDto req, @PathVariable Long diaryId) throws IOException {
+        photoService.insert(req, diaryId);
     }
 
-    @GetMapping("diaries/{diaryId}")
-    public List<PhotoResponseDto> getByDiaryId(@PathVariable Long diaryId) {
+    @GetMapping("/{id}")
+    public Photo getById(@PathVariable Long id) {
+        return photoService.getById(id);
+    }
+
+    @GetMapping("/diary/{diaryId}")
+    public List<Photo> getByDiaryDetailId(@PathVariable Long diaryId) {
         return photoService.getByDiaryId(diaryId);
     }
 
-    @PutMapping("{id}")
-    public void update(@PathVariable Long id, @RequestBody String path) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody String path) throws IOException {
         photoService.update(id, path);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         photoService.deleteById(id);
     }
 }
+
