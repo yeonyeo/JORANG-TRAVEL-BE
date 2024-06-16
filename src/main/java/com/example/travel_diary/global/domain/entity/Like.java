@@ -21,6 +21,7 @@ public class Like {
     @Column(name = "LIKE_ID")
     Long id;
 
+    @JsonBackReference
     @JoinColumn(name = "USER_ID")
     @ManyToOne
     User user;
