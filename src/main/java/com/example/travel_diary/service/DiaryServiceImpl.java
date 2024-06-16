@@ -44,7 +44,7 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setContent(req.content());
         diary.setScope(req.scope());
         diary.setDate(req.date());
-        diary.setCountry(req.country());
+        diary.setCountry(req.country().toLowerCase());
         diary.setCreatedAt(LocalDateTime.now());
     }
 
