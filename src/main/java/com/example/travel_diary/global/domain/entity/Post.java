@@ -29,9 +29,9 @@ public class Post {
     @Setter
     private LocalDateTime createdAt;
 
-    @Column(name = "LIKE_COUNT")
+    @Column(name = "LOVE")
     @Setter
-    private int likeCount;
+    private int love;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
