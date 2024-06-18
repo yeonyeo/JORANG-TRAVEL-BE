@@ -26,15 +26,22 @@ public class CustomSecurityConfig {
             corsConfiguration.addAllowedHeader("*");
             corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","OPTIONS"));
             corsConfiguration.setAllowedOrigins(List.of("*"));
+//            corsConfiguration.setAllowCredentials(true);
             return corsConfiguration;
         }));
         security.userDetailsService(userDetailsService);
 
+//        security.authorizeHttpRequests(req ->
+//            req.requestMatchers("/api/v1/auths/signUp", "/api/v1/auths/signIn")
+//                    .permitAll()
+//                    .anyRequest()
+//                    .authenticated()
+//        );
         security.authorizeHttpRequests(req ->
-            req.requestMatchers("/api/v1/auths/signUp", "/api/v1/auths/signIn")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated()
+                req.requestMatchers("/api/v1/auths/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
         );
         security.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return security.build();

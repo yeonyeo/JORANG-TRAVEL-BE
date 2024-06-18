@@ -71,3 +71,4 @@ public class PhotoServiceImpl implements PhotoService {
         photoRepository.deleteById(id);
     }
 }
+
