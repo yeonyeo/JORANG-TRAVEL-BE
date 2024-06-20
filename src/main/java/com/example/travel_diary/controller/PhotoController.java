@@ -2,7 +2,7 @@
 //
 //import com.example.travel_diary.global.domain.entity.Photo;
 //import com.example.travel_diary.global.request.PhotoRequestDto;
-////import com.example.travel_diary.service.PhotoService;
+
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,9 @@
 //public class PhotoController {
 //    private final PhotoService photoService;
 //
-//    @PostMapping("/diaries/{diaryId}")
+
+//    @PostMapping("/diary/{diaryId}")
+
 //    @ResponseStatus(HttpStatus.CREATED)
 //    public void insert(@RequestBody PhotoRequestDto req, @PathVariable Long diaryId) throws IOException {
 //        photoService.insert(req, diaryId);
@@ -27,7 +29,11 @@
 //        return photoService.getById(id);
 //    }
 //
+
+//    @GetMapping("/diary/{diaryId}")
+
 //    @GetMapping("/diaries/{diaryId}")
+
 //    public List<Photo> getByDiaryDetailId(@PathVariable Long diaryId) {
 //        return photoService.getByDiaryId(diaryId);
 //    }
@@ -42,3 +48,4 @@
 //        photoService.deleteById(id);
 //    }
 //}
+

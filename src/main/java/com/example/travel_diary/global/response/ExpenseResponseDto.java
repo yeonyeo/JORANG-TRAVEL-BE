@@ -6,23 +6,16 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record ExpenseResponseDto (
-    Long id,
-    int cost,
-    String place,
-    LocalDate date,
-    String category,
-    String scope,
-    String country
+        Long id,
+    LocalDate date
+
     ){
     public static ExpenseResponseDto from(Expense expense) {
         return new ExpenseResponseDto(
                 expense.getId(),
-                expense.getCost(),
-                expense.getPlace(),
-                expense.getDate(),
-                expense.getCategory(),
-                expense.getScope(),
-                expense.getCountry()
+
+                expense.getDate()
+
         );
     }
 }
