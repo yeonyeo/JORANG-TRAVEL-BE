@@ -1,7 +1,9 @@
 package com.example.travel_diary.service;
 
 import com.example.travel_diary.global.domain.entity.Diary;
+import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.request.DiaryRequestDto;
+import com.example.travel_diary.global.response.ExpenseByUserAndCountryResponseDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,4 +14,5 @@ public interface DiaryService {
     List<Diary> getAllByPostId(Long postId);
     void updateDiary(Long id, DiaryRequestDto req);
     void deleteDiaryById(Long id);
+    List<String>getDiaryByUserAndCountry(User user);
 }
