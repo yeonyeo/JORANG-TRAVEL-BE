@@ -6,12 +6,17 @@ import com.example.travel_diary.global.request.FindPasswordRequestDto;
 import com.example.travel_diary.global.request.SignInRequestDto;
 import com.example.travel_diary.global.request.SignUpRequestDto;
 import com.example.travel_diary.global.response.GetUserByIdResponseDto;
+import com.example.travel_diary.global.response.LoginInResponseDto;
 
 import java.util.UUID;
 
 public interface AuthService {
     UUID signUp(SignUpRequestDto signUpRequestDto) throws Exception;
-    String signIn(SignInRequestDto signInRequestDto) throws Exception;
+    LoginInResponseDto signIn(SignInRequestDto signInRequestDto) throws Exception;
+
+    String possibleUserByEmail(String email) throws Exception;
+
+    String possibleUserByLoginId(String loginId) throws Exception;
 
     GetUserByIdResponseDto getUserById(UUID id) throws Exception;
 

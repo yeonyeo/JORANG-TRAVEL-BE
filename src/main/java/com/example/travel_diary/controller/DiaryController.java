@@ -1,10 +1,12 @@
 package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Diary;
+import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.request.DiaryRequestDto;
 import com.example.travel_diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -39,4 +41,9 @@ public class DiaryController {
     public void deleteDiaryById(@PathVariable Long id) {
         diaryService.deleteDiaryById(id);
     };
+
+    @GetMapping("/mypage")
+    public List<String> getDiaryByUserAndCountry(@AuthenticationPrincipal User user) {
+        return diaryService.getDiaryByUserAndCountry(user);
+    }
 }
