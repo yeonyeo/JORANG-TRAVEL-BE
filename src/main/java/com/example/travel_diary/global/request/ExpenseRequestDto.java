@@ -7,24 +7,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record ExpenseRequestDto (
-    int cost,
-    String place,
-    LocalDate date,
-    String category,
-    String scope,
-    String country
+    LocalDate date
 
 
     ){
     public Expense toEntity(){
         return Expense.builder()
-                .cost(cost)
-                .place(place)
                 .date(date)
-                .category(category)
-                .scope(scope)
-                .country(country)
-                .createdAt(LocalDateTime.now())
                 .build();
 
     }

@@ -34,12 +34,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     public Expense updateExpense(Long id, ExpenseRequestDto req){
         Expense expense = expenseRepository.findById(id).orElseThrow(
                 EntityNotFoundException::new);
-        expense.setCost(req.cost());
         expense.setDate(req.date());
-        expense.setPlace(req.place());
-        expense.setCategory(req.category());
-        expense.setScope(req.scope());
-        expense.setCountry(req.country());
 
         //set이란 save 중 하나만
         //save를 하면 중복된 값 생길수도?insert와 update의 구분 기준이 없음 -> 어떤 기준?
