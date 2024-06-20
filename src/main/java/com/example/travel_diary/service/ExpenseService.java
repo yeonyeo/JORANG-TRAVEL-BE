@@ -1,7 +1,10 @@
 package com.example.travel_diary.service;
 
 import com.example.travel_diary.global.domain.entity.Expense;
+import com.example.travel_diary.global.domain.entity.User;
+import com.example.travel_diary.global.request.ExpenseByUserAndCountryRequestDto;
 import com.example.travel_diary.global.request.ExpenseRequestDto;
+import com.example.travel_diary.global.response.ExpenseByUserAndCountryResponseDto;
 import com.example.travel_diary.global.response.ExpenseResponseDto;
 
 import java.util.List;
@@ -14,6 +17,7 @@ public interface ExpenseService {
     void deleteExpenseById(Long id);
 //    List<Expense> getAllExpense();
 
+    List<ExpenseByUserAndCountryResponseDto>getExpenseByUserAndCountry(User user);
 
 
 }
