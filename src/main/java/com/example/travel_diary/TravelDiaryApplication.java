@@ -1,15 +1,12 @@
 package com.example.travel_diary;
 
-//import com.google.cloud.Identity;
-//import com.google.cloud.Policy;
-//import com.google.cloud.storage.*;
-//import com.google.storage.v2.Object;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import com.google.cloud.storage.*;
+
 
 import java.io.IOException;
 import java.nio.file.Paths;
