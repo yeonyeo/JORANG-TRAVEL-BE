@@ -22,4 +22,6 @@ public interface PostService {
     Page<Post> getPostsByCountry(String country, int page, int size);
     Page<Post> getTopLikeFirstOnThisWeek(int page, int size);
     Page<Post> getPostsBetween(LocalDate from, LocalDate to, int page, int size);
+
+
 }

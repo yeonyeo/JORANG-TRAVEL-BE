@@ -40,9 +40,9 @@ public class ExpenseController {
         expenseService.deleteExpenseById(id);
     }
 
-    @GetMapping("/country/{country}")
-    public List<ExpenseByUserAndCountryResponseDto> getExpenseByUserAndCountry(@AuthenticationPrincipal User user, @PathVariable("country") String country ) {
-        return expenseService.getExpenseByUserAndCountry(user,country);
+    @GetMapping("/mypage")
+    public List<ExpenseByUserAndCountryResponseDto> getExpenseByUserAndCountry(@AuthenticationPrincipal User user) {
+        return expenseService.getExpenseByUserAndCountry(user);
     }
 
 }

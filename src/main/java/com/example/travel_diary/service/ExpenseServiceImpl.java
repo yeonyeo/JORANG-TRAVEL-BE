@@ -63,15 +63,25 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public List<ExpenseByUserAndCountryResponseDto> getExpenseByUserAndCountry(@AuthenticationPrincipal User user, String country) {
-        List<Expense> allByCountryAndPostUser = expenseRepository.findAllByCountryAndPost_User(country, user);
+    public List<ExpenseByUserAndCountryResponseDto> getExpenseByUserAndCountry(@AuthenticationPrincipal User user) {
+        List<Expense> allAndPostUser = expenseRepository.findAllByPost_User(user);
+        List<String> countryByUser = new ArrayList<>(); // 초기화
         List<ExpenseByUserAndCountryResponseDto> result = new ArrayList<>(); // 초기화
-        for(Expense expense : allByCountryAndPostUser) {
-            result.add(new ExpenseByUserAndCountryResponseDto(expense.getCountry(), expense.getCost()));
+        int total = 0;
+        for(Expense expense : allAndPostUser) {
+            if(!countryByUser.contains(expense.getCountry())) {
+                countryByUser.add(expense.getCountry());
+            }
         }
-//        for(ExpenseByUserAndCountryResponseDto dto : result) {
-//            System.out.println("---------------------result--------"+dto.country()+dto.cost());
-//        }
+
+        for(String country : countryByUser) {
+            List<Expense> allByCountryAndPostUser = expenseRepository.findAllByCountryAndPost_User(country, user);
+            total = 0;
+            for(Expense expense : allByCountryAndPostUser) {
+                total += expense.getCost();
+            }
+            result.add(new ExpenseByUserAndCountryResponseDto(country, total));
+        }
         return result;
     }
 

@@ -17,7 +17,7 @@ public interface ExpenseService {
     void deleteExpenseById(Long id);
 //    List<Expense> getAllExpense();
 
-    List<ExpenseByUserAndCountryResponseDto>getExpenseByUserAndCountry(User user, String country);
+    List<ExpenseByUserAndCountryResponseDto>getExpenseByUserAndCountry(User user);
 
 
 }
