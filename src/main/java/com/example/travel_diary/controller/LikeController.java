@@ -18,7 +18,7 @@ public class LikeController {
 
     @PostMapping("/posts/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public int likeComment(@AuthenticationPrincipal User user, @PathVariable Long postId) {
+    public int likeComment(@AuthenticationPrincipal User user, @PathVariable(name = "postId") Long postId) {
 //        if(user.) throw new IllegalArgumentException("로그인 필요");
         return likeService.likeComment(user, postId);
     }
@@ -29,13 +29,13 @@ public class LikeController {
     }
 
     @GetMapping("/posts/{postId}/count")
-    public Long countLike(@PathVariable Long postId) {
+    public Long countLike(@PathVariable(name = "postId") Long postId) {
         return likeService.countLike(postId);
     }
 
     @GetMapping("/posts/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public boolean checkLike(@AuthenticationPrincipal User user, @PathVariable Long postId) {
+    public boolean checkLike(@AuthenticationPrincipal User user, @PathVariable(name = "postId") Long postId) {
         return likeService.checkLike(user, postId);
     }
 }

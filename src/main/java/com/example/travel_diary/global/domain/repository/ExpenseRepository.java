@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
-    List<Expense> findAllByCountryAndPost_User(String country, User user);
-    List<Expense> findAllByPost_User(User user);
+
 }
 
