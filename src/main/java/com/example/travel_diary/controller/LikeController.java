@@ -1,6 +1,5 @@
 package com.example.travel_diary.controller;
 
-import com.example.travel_diary.global.domain.entity.Like;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.response.LikeResponse;
 import com.example.travel_diary.service.LikeService;
@@ -32,5 +31,11 @@ public class LikeController {
     @GetMapping("/posts/{postId}/count")
     public Long countLike(@PathVariable Long postId) {
         return likeService.countLike(postId);
+    }
+
+    @GetMapping("/posts/{postId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean checkLike(@AuthenticationPrincipal User user, @PathVariable Long postId) {
+        return likeService.checkLike(user, postId);
     }
 }
