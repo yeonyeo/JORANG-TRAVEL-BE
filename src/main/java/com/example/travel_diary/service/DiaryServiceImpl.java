@@ -6,9 +6,13 @@ import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.DiaryRepository;
 import com.example.travel_diary.global.request.DiaryRequestDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,4 +71,9 @@ public class DiaryServiceImpl implements DiaryService {
         }
         return countryByUser;
     }
+
+
 }
+
+
+

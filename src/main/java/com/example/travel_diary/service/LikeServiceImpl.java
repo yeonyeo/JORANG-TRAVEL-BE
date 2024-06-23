@@ -37,10 +37,17 @@ public class LikeServiceImpl implements LikeService {
         }
     }
 
+//    @Override
+//    public List<LikeResponse> getPosts(User user) {
+//        List<Like> likes = likeRepository.findAllByUser(user);
+//        if (likes.isEmpty()) throw new IllegalArgumentException("좋아요 한 포스트가 존재하지 않습니다.");
+//        return likes.stream().map(LikeResponse::from).toList();
+//    }
+
     @Override
     public List<LikeResponse> getPosts(User user) {
         List<Like> likes = likeRepository.findAllByUser(user);
-        if (likes.isEmpty()) throw new IllegalArgumentException("좋아요 한 포스트가 존재하지 않습니다.");
+        if (likes.isEmpty()) return null;
         return likes.stream().map(LikeResponse::from).toList();
     }
 

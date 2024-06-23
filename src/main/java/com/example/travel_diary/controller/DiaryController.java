@@ -19,26 +19,26 @@ public class DiaryController {
 
     @PostMapping("/posts/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long createDiary(@PathVariable Long postId) {
+    public Long createDiary(@PathVariable(name = "postId") Long postId) {
         return diaryService.createDiary(postId);
     }
 
     @GetMapping("/posts/{postId}")
-    public List<Diary> getAllByPostId(@PathVariable Long postId) {
+    public List<Diary> getAllByPostId(@PathVariable(name = "postId") Long postId) {
         return diaryService.getAllByPostId(postId);
     };
 
     @GetMapping("/{id}")
-    public Diary getById(@PathVariable Long id) {
+    public Diary getById(@PathVariable(name = "id") Long id) {
         return diaryService.getById(id);
     }
 
     @PutMapping("/{id}")
-    public void updateDiary(@PathVariable Long id, @RequestBody DiaryRequestDto req) {
+    public void updateDiary(@PathVariable(name = "id") Long id, @RequestBody DiaryRequestDto req) {
         diaryService.updateDiary(id, req);
     };
     @DeleteMapping("/{id}")
-    public void deleteDiaryById(@PathVariable Long id) {
+    public void deleteDiaryById(@PathVariable(name = "id") Long id) {
         diaryService.deleteDiaryById(id);
     };
 
@@ -46,6 +46,5 @@ public class DiaryController {
     public List<String> getDiaryByUserAndCountry(@AuthenticationPrincipal User user) {
         return diaryService.getDiaryByUserAndCountry(user);
     }
-
 
 }
