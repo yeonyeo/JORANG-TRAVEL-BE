@@ -30,4 +30,20 @@ public class Photo {
     @JoinColumn(name = "DIARY_ID")
     @ManyToOne
     private Diary diary;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getStoragePath() {
+        return storagePath;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public Diary getDiary() {
+        return diary;
+    }
 }

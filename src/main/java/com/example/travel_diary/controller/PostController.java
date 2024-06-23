@@ -2,6 +2,7 @@ package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
+import com.example.travel_diary.global.domain.repository.PostRepository;
 import com.example.travel_diary.global.response.PostResponse;
 import com.example.travel_diary.service.PostService;
 import jakarta.annotation.security.RolesAllowed;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
+//    private final PostRepository postRepository;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
 //    @RolesAllowed("USER")
@@ -28,7 +30,7 @@ public class PostController {
         return postService.createPost(user);
     }
 
-//    @GetMapping
+//    @GetMapping("/all")
 //    public List<Post> getAll() {
 //        return postService.getAll();
 //    }
@@ -43,7 +45,12 @@ public class PostController {
         postService.deleteById(id);
     }
 
-    @GetMapping
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody String title) {
+        postService.update(id, title);
+    }
+
+    @GetMapping("/all")
     public Page<Post> getAll(@RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "5") int size) {
         return postService.getAll(page, size);
@@ -55,11 +62,18 @@ public class PostController {
         return postService.getRecentPostsFirst(page, size);
     }
 
-    @GetMapping("/diaries")
-    public Page<Post> getPostsByCountry(@RequestParam(value = "country") String country,
-                                        @RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "5") int size) {
-        return postService.getPostsByCountry(country, page, size);
+//    @GetMapping("/diaries")
+//    public Page<Post> getPostsByCountry(@RequestParam(value = "country") String country,
+//                                        @RequestParam(defaultValue = "0") int page,
+//                                        @RequestParam(defaultValue = "5") int size) {
+//        return postService.getPostsByCountry(country, page, size);
+//    }
+
+    @GetMapping
+    public Page<Post> getRecentPostsFirstByCountry(@RequestParam String country,
+                                                   @RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "5") int size) {
+        return postService.getRecentPostsFirstByCountry(country, page, size);
     }
 
     @GetMapping("/like-first")
@@ -75,4 +89,19 @@ public class PostController {
                                       @RequestParam(defaultValue = "5") int size) {
         return postService.getPostsBetween(from, to, page, size);
     }
+
+    @GetMapping("/user")
+    public Page<Post> getByUser(@AuthenticationPrincipal User user,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "5") int size) {
+        return postService.getByUser(user, page, size);
+    }
+
+//    @GetMapping("/fetch")
+//    public List<Post> fetchAll() {
+//        List<Post> posts = postRepository.fetchAll();
+//        posts.forEach(post -> System.out.println(post));
+//        return posts;
+//    }
+
 }
