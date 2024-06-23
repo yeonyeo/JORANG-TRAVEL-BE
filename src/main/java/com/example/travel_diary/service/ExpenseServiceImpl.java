@@ -16,7 +16,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Transactional
     @Override
     public void saveExpense(ExpenseRequestDto expenseRequestDto) {
-       expenseRepository.save(expenseRequestDto.toEntity());
+        expenseRepository.save(expenseRequestDto.toEntity());
     }
 
     @Override
