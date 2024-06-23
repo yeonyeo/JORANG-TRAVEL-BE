@@ -14,6 +14,7 @@ import com.example.travel_diary.global.request.FindPasswordRequestDto;
 import com.example.travel_diary.global.request.SignInRequestDto;
 import com.example.travel_diary.global.request.SignUpRequestDto;
 import com.example.travel_diary.global.response.GetUserByIdResponseDto;
+import com.example.travel_diary.global.response.LoginInResponseDto;
 import com.example.travel_diary.global.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -57,12 +58,27 @@ public class AuthServiceImpl implements com.example.travel_diary.service.AuthSer
 
     @Override
     @Transactional
-    public String signIn(SignInRequestDto signInRequestDto) throws Exception {
+    public LoginInResponseDto signIn(SignInRequestDto signInRequestDto) throws Exception {
         User user = userRepository.findByLoginId(signInRequestDto.loginId()).orElseThrow(UserNotFoundException::new);
         if(!passwordEncoder.matches(signInRequestDto.password(), user.getPassword())) {
             throw new LoginFailedException();
         }
-        return jwtUtil.createToken(signInRequestDto.loginId());
+        String token = jwtUtil.createToken(signInRequestDto.loginId());
+        return new LoginInResponseDto(token,user.getId(),user.getNickname());
+    }
+
+    @Override
+    public String possibleUserByEmail(String email) throws Exception {
+        Optional<User> byId = userRepository.findByEmail(email);
+        if (byId.isPresent()) throw new EmailAlreadyExistsException();
+        return "possible";
+    }
+
+    @Override
+    public String possibleUserByLoginId(String loginId) throws Exception {
+        Optional<User> byId = userRepository.findByLoginId(loginId);
+        if (byId.isPresent()) throw new LoginIdAlreadyExistsException();
+        return "possible";
     }
 
     @Override

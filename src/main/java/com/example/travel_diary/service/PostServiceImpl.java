@@ -15,6 +15,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -100,4 +101,6 @@ public class PostServiceImpl implements PostService {
     public Page<Post> getByUser(User user, int page, int size) {
         return postRepository.findByUser(user, PageRequest.of(page, size));
     }
+
+
 }

@@ -25,5 +25,7 @@ public interface PostService {
 
     Page<Post> getTopLikeFirstOnThisWeek(int page, int size);
     Page<Post> getPostsBetween(LocalDate from, LocalDate to, int page, int size);
+
     Page<Post> getByUser(User user, int page, int size);
+
 }

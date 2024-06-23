@@ -90,18 +90,12 @@ public class PostController {
         return postService.getPostsBetween(from, to, page, size);
     }
 
+
     @GetMapping("/user")
     public Page<Post> getByUser(@AuthenticationPrincipal User user,
                                 @RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "5") int size) {
         return postService.getByUser(user, page, size);
     }
-
-//    @GetMapping("/fetch")
-//    public List<Post> fetchAll() {
-//        List<Post> posts = postRepository.fetchAll();
-//        posts.forEach(post -> System.out.println(post));
-//        return posts;
-//    }
 
 }

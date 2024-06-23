@@ -17,4 +17,6 @@ public interface LikeService {
 
     // 특정 post 에 눌린 좋아요 수 뽑기
     Long countLike(Long postId);
+
+    Boolean checkLike(User user, long postId);
 }
