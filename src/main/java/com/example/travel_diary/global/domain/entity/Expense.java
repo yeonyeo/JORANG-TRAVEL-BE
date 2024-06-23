@@ -36,7 +36,4 @@ public class Expense {
     @ManyToOne
     private Post post;
 
-    //set 지우고 /
-    // enum scope
-
 }

@@ -25,17 +25,17 @@ public class ExpenseDetailController {
     }
 
     @PutMapping("/{id}")
-    public void updateExpenseDetail(@PathVariable Long id, @RequestBody ExpenseDetailRequestDto requestDto) {
+    public void updateExpenseDetail(@PathVariable(name = "id") Long id, @RequestBody ExpenseDetailRequestDto requestDto) {
         expenseDetailService.updateExpenseDetail(id, requestDto);
     }
 
     @GetMapping("/{id}")
-    public ExpenseDetailResponseDto getExpenseDetailById(@PathVariable Long id) {
+    public ExpenseDetailResponseDto getExpenseDetailById(@PathVariable(name = "id") Long id) {
         return expenseDetailService.getExpenseDetailById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteExpenseDetailById(@PathVariable Long id) {
+    public void deleteExpenseDetailById(@PathVariable(name = "id") Long id) {
         expenseDetailService.deleteExpenseDetailById(id);
     }
 
@@ -44,3 +44,4 @@ public class ExpenseDetailController {
         return expenseDetailService.getExpenseDetailByUserAndCountry(user);
     }
 }
+

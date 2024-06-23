@@ -10,6 +10,4 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
-
 }
-
