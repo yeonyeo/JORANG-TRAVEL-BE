@@ -76,5 +76,10 @@ public class PostController {
         return postService.getPostsBetween(from, to, page, size);
     }
 
+    @GetMapping("/user")
+    public List<Post> getAllByUser(@AuthenticationPrincipal User user) {
+        return postService.getAllByUser(user);
+    }
+
 
 }

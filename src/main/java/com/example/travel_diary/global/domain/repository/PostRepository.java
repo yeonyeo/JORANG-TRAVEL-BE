@@ -18,5 +18,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findAllByDiaries_Country(String country, Pageable pageable);
     Page<Post> findAllByCreatedAtBetweenOrderByLoveDesc(LocalDateTime startOfWeek, LocalDateTime endOfWeek, Pageable pageable);
     Page<Post> findAllByDiaries_DateBetween(LocalDate from, LocalDate to, Pageable pageable);
-
+    List<Post> findAllByUser(User user);
 }
