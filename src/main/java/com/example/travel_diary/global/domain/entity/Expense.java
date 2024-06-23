@@ -39,6 +39,7 @@ public class Expense {
     private Post post;
 
 
+
     //set 지우고 /
     // enum scope
 

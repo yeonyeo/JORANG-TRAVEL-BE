@@ -6,8 +6,6 @@ import com.example.travel_diary.global.domain.repository.PostRepository;
 import com.example.travel_diary.global.domain.type.Scope;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,15 +26,6 @@ public class PostServiceImpl implements PostService {
     public Long createPost(@AuthenticationPrincipal User user) {
         Post post = postRepository.save(Post.builder().user(user).build());
         return post.getId();
-    }
-
-    @Override
-    public List<Post> getAll() {
-        return postRepository.findAll();
-    }
-    @Override
-    public Post getById(Long id) {
-        return postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
@@ -55,52 +43,47 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<Post> getAll(int page, int size) {
-        return postRepository.findAllByDiaries_Scope(Scope.PUBLIC, PageRequest.of(page, size));
+    public List<Post> getAll() {
+        return postRepository.findAllByDiaries_Scope(Scope.PUBLIC);
     }
 
     @Override
-    public Page<Post> getRecentPostsFirst(int page, int size) {
-        List<Post> all1 = postRepository.findAll();
-        System.out.println(all1.size());
-        System.out.println("page = " + page + ", size = " + size);
-        Page<Post> all = postRepository.findByDiaries_ScopeOrderByCreatedAtDesc(Scope.PUBLIC, PageRequest.of(page, size));
-        System.out.println(all.getTotalElements());
-        System.out.println(all.getNumber());
-        return all;
+    public Post getById(Long id) {
+        return postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
 
     @Override
-    public Page<Post> getRecentPostsFirstByCountry(String country, int page, int size) {
-        return postRepository.findAllByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope.PUBLIC, country, PageRequest.of(page, size));
+    public List<Post> getRecentPostsFirst() {
+        return postRepository.findByDiaries_ScopeOrderByCreatedAtDesc(Scope.PUBLIC);
     }
 
-    // ok
-//    @Override
-//    public Page<Post> getPostsByCountry(String country, int page, int size) {
-//        return postRepository.findAllByDiaries_ScopeAndDiaries_Country(Scope.PUBLIC, country.toLowerCase(), PageRequest.of(page, size));
-//    }
+    @Override
+    public List<Post> getRecent5PostsByCountry(String country) {
+        return postRepository.findTop5ByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope.PUBLIC, country);
+    }
+
+    @Override
+    public List<Post> getRecentPostsFirstByCountry(String country) {
+        return postRepository.findAllByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope.PUBLIC, country.toLowerCase());
+    }
 
 
     @Override
-    public Page<Post> getTopLikeFirstOnThisWeek(int page, int size) {
+    public List<Post> getTop5LikeOnThisWeek() {
         LocalDateTime today = LocalDateTime.now().toLocalDate().atStartOfDay();
         LocalDateTime startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDateTime endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-        return postRepository.findAllByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(Scope.PUBLIC, startOfWeek, endOfWeek, PageRequest.of(page, size));
-    }
-
-//
-    @Override
-    public Page<Post> getPostsBetween(LocalDate from, LocalDate to, int page, int size) {
-        return postRepository.findAllByDiaries_ScopeAndDiaries_DateBetween(Scope.PUBLIC, from, to, PageRequest.of(page, size));
+        return postRepository.findTop5ByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(Scope.PUBLIC, startOfWeek, endOfWeek);
     }
 
     @Override
-    public Page<Post> getByUser(User user, int page, int size) {
-        return postRepository.findByUser(user, PageRequest.of(page, size));
+    public List<Post> getRecentPostsFirstBetweenTheseDates(LocalDate from, LocalDate to) {
+        return postRepository.findAllByDiaries_ScopeAndDiaries_DateBetweenOrderByCreatedAtDesc(Scope.PUBLIC, from, to);
     }
 
-
+    @Override
+    public List<Post> getByUser(User user) {
+        return postRepository.findAllByUser(user);
+    }
 }

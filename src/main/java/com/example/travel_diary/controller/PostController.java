@@ -2,16 +2,10 @@ package com.example.travel_diary.controller;
 
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
-import com.example.travel_diary.global.domain.repository.PostRepository;
-import com.example.travel_diary.global.response.PostResponse;
 import com.example.travel_diary.service.PostService;
-import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Role;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -22,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
-//    private final PostRepository postRepository;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
 //    @RolesAllowed("USER")
@@ -30,15 +24,6 @@ public class PostController {
         return postService.createPost(user);
     }
 
-//    @GetMapping("/all")
-//    public List<Post> getAll() {
-//        return postService.getAll();
-//    }
-
-    @GetMapping("/{id}")
-    public Post getById(@PathVariable Long id) {
-        return postService.getById(id);
-    }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
@@ -50,52 +35,45 @@ public class PostController {
         postService.update(id, title);
     }
 
-    @GetMapping("/all")
-    public Page<Post> getAll(@RequestParam(defaultValue = "0") int page,
-                             @RequestParam(defaultValue = "5") int size) {
-        return postService.getAll(page, size);
+    @GetMapping()
+    public List<Post> getAll() {
+        return postService.getAll();
     }
 
-    @GetMapping("/recent-first")
-    public Page<Post> getRecentPostsFirst(@RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "5") int size) {
-        return postService.getRecentPostsFirst(page, size);
+    @GetMapping("/{id}")
+    public Post getById(@PathVariable Long id) {
+        return postService.getById(id);
     }
 
-//    @GetMapping("/diaries")
-//    public Page<Post> getPostsByCountry(@RequestParam(value = "country") String country,
-//                                        @RequestParam(defaultValue = "0") int page,
-//                                        @RequestParam(defaultValue = "5") int size) {
-//        return postService.getPostsByCountry(country, page, size);
-//    }
-
-    @GetMapping
-    public Page<Post> getRecentPostsFirstByCountry(@RequestParam String country,
-                                                   @RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(defaultValue = "5") int size) {
-        return postService.getRecentPostsFirstByCountry(country, page, size);
+    @GetMapping("/recent")
+    public List<Post> getRecentPostsFirst() {
+        return postService.getRecentPostsFirst();
     }
 
-    @GetMapping("/like-first")
-    public Page<Post> getTopLikeFirstOnThisWeek(@RequestParam(defaultValue = "0") int page,
-                                                @RequestParam(defaultValue = "5") int size) {
-        return postService.getTopLikeFirstOnThisWeek(page, size);
+    @GetMapping("/top5/diaries")
+    public List<Post> getRecent5PostsByCountry(@RequestParam String country) {
+        return postService.getRecent5PostsByCountry(country);
     }
 
-    @GetMapping("/between-dates")
-    public Page<Post> getPostsBetween(@RequestParam(value = "from") LocalDate from,
-                                      @RequestParam(value = "to") LocalDate to,
-                                      @RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "5") int size) {
-        return postService.getPostsBetween(from, to, page, size);
+    @GetMapping("recent/diaries")
+    public List<Post> getRecentPostsFirstByCountry(@RequestParam String country) {
+        return postService.getRecentPostsFirstByCountry(country);
     }
 
+    @GetMapping("/top5/like")
+    public List<Post> getTop5LikeOnThisWeek() {
+        return postService.getTop5LikeOnThisWeek();
+    }
+
+    @GetMapping("/dates")
+    public List<Post> getRecentPostsFirstBetweenTheseDates(@RequestParam(value = "from") LocalDate from,
+                                      @RequestParam(value = "to") LocalDate to) {
+        return postService.getRecentPostsFirstBetweenTheseDates(from, to);
+    }
 
     @GetMapping("/user")
-    public Page<Post> getByUser(@AuthenticationPrincipal User user,
-                                @RequestParam(defaultValue = "0") int page,
-                                @RequestParam(defaultValue = "5") int size) {
-        return postService.getByUser(user, page, size);
+    public List<Post> getByUser(@AuthenticationPrincipal User user) {
+        return postService.getByUser(user);
     }
 
 }

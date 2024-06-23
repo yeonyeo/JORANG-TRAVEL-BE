@@ -1,30 +1,21 @@
 package com.example.travel_diary.global.domain.repository;
-
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.type.Scope;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    Page<Post> findAllByDiaries_Scope(Scope scope, Pageable pageable);
-    Page<Post> findByDiaries_ScopeOrderByCreatedAtDesc(Scope scope, Pageable pageable);
-//    Page<Post> findAllByDiaries_ScopeAndDiaries_Country(Scope scope, String country, Pageable pageable);
-    Page<Post> findAllByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope scope, String country, Pageable pageable);
-
-    Page<Post> findAllByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(Scope scope, LocalDateTime startOfWeek, LocalDateTime endOfWeek, Pageable pageable);
-//    Page<Post> findAllByCreatedAtBetweenOrderByLoveDesc(LocalDateTime startOfWeek, LocalDateTime endOfWeek, Pageable pageable);
-    Page<Post> findAllByDiaries_ScopeAndDiaries_DateBetween(Scope scope, LocalDate from, LocalDate to, Pageable pageable);
-    Page<Post> findByUser(User user, Pageable pageable);
+    List<Post> findAllByDiaries_Scope(Scope scope);
+    List<Post> findByDiaries_ScopeOrderByCreatedAtDesc(Scope scope);
+    List<Post> findTop5ByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope scope, String country);
+    List<Post> findAllByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope scope, String country);
+    List<Post> findTop5ByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(Scope scope, LocalDateTime startOfWeek, LocalDateTime endOfWeek);
+    List<Post> findAllByDiaries_ScopeAndDiaries_DateBetweenOrderByCreatedAtDesc(Scope scope, LocalDate from, LocalDate to);
+    List<Post> findAllByUser(User user);
 
 }
 
