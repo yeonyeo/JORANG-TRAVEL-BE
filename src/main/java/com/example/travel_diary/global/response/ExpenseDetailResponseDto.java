@@ -20,7 +20,6 @@ public record ExpenseDetailResponseDto(
                 expenseDetail.getId(),
                 expenseDetail.getCost(),
                 expenseDetail.getPlace(),
-
                 expenseDetail.getCategory(),
                 expenseDetail.getScope(),
                 expenseDetail.getCreatedAt(),

@@ -78,5 +78,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByDiaries_DateBetween(from, to, PageRequest.of(page, size));
     }
 
+    @Override
+    public List<Post> getAllByUser(User user) {
+        return postRepository.findAllByUser(user);
+    }
+
 
 }
