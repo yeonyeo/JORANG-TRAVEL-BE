@@ -1,11 +1,14 @@
 package com.example.travel_diary.controller;
 
+import com.example.travel_diary.global.domain.entity.ExpenseDetail;
 import com.example.travel_diary.global.request.ExpenseDetailRequestDto;
 import com.example.travel_diary.global.response.ExpenseDetailResponseDto;
 import com.example.travel_diary.service.ExpenseDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/expenseDetail")
@@ -23,6 +26,8 @@ public class ExpenseDetailController {
     public void updateExpenseDetail(@PathVariable Long id, @RequestBody ExpenseDetailRequestDto requestDto) {
         expenseDetailService.updateExpenseDetail(id, requestDto);
     }
+//@GetMapping("/{expenseId")
+//public List<ExpenseDetail> getAllbyExpenseId(@PathVariable Long expenseId) {}
 
     @GetMapping("/{id}")
     public ExpenseDetailResponseDto getExpenseDetailById(@PathVariable Long id) {

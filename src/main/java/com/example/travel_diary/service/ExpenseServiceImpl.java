@@ -31,6 +31,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
+    public List<Expense> getAllByPostId(Long postId){ return expenseRepository.findAllByPost_Id(postId);}
+
+    @Override
     public ExpenseResponseDto getExpenseById(Long id){
         Expense expense = expenseRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         // 에러처리(orelseget)
@@ -57,28 +60,28 @@ public class ExpenseServiceImpl implements ExpenseService {
         expenseRepository.deleteById(id);
     }
 
-    @Override
-    public List<ExpenseByUserAndCountryResponseDto> getExpenseByUserAndCountry(@AuthenticationPrincipal User user) {
-        List<Expense> allAndPostUser = expenseRepository.findAllByPost_User(user);
-        List<String> countryByUser = new ArrayList<>(); // 초기화
-        List<ExpenseByUserAndCountryResponseDto> result = new ArrayList<>(); // 초기화
-        int total = 0;
-        for(Expense expense : allAndPostUser) {
-            if(!countryByUser.contains(expense.getCountry())) {
-                countryByUser.add(expense.getCountry());
-            }
-        }
-
-        for(String country : countryByUser) {
-            List<Expense> allByCountryAndPostUser = expenseRepository.findAllByCountryAndPost_User(country, user);
-            total = 0;
-            for(Expense expense : allByCountryAndPostUser) {
-                total += expense.getCost();
-            }
-            result.add(new ExpenseByUserAndCountryResponseDto(country, total));
-        }
-        return result;
-    }
+//    @Override
+//    public List<ExpenseByUserAndCountryResponseDto> getExpenseByUserAndCountry(@AuthenticationPrincipal User user) {
+//        List<Expense> allAndPostUser = expenseRepository.findAllByPost_User(user);
+//        List<String> countryByUser = new ArrayList<>(); // 초기화
+//        List<ExpenseByUserAndCountryResponseDto> result = new ArrayList<>(); // 초기화
+//        int total = 0;
+//        for(Expense expense : allAndPostUser) {
+//            if(!countryByUser.contains(expense.getCountry())) {
+//                countryByUser.add(expense.getCountry());
+//            }
+//        }
+//
+//        for(String country : countryByUser) {
+//            List<Expense> allByCountryAndPostUser = expenseRepository.findAllByCountryAndPost_User(country, user);
+//            total = 0;
+//            for(Expense expense : allByCountryAndPostUser) {
+//                total += expense.getCost();
+//            }
+//            result.add(new ExpenseByUserAndCountryResponseDto(country, total));
+//        }
+//        return result;
+//    }
 
 
 //@Transactional지우다가뭔가 오류-> 실패->롤백하는게 목표

@@ -26,9 +26,14 @@ public class ExpenseController {
     public void save(@RequestBody ExpenseRequestDto req) {
         expenseService.saveExpense(req);
     }
-    @PutMapping("/update/{id}")
+
+    @PutMapping("/{id}")
     public void update(@PathVariable Long id, @RequestBody ExpenseRequestDto req) {
         expenseService.updateExpense(id, req);
+    }
+    @GetMapping("/{postId}")
+    public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);
+
     }
     @GetMapping("/{id}")
     public ExpenseResponseDto getExpenseById(@PathVariable Long id) {
@@ -40,9 +45,9 @@ public class ExpenseController {
         expenseService.deleteExpenseById(id);
     }
 
-    @GetMapping("/mypage")
-    public List<ExpenseByUserAndCountryResponseDto> getExpenseByUserAndCountry(@AuthenticationPrincipal User user) {
-        return expenseService.getExpenseByUserAndCountry(user);
-    }
+//    @GetMapping("/mypage")
+//    public List<ExpenseByUserAndCountryResponseDto> getExpenseByUserAndCountry(@AuthenticationPrincipal User user) {
+//        return expenseService.getExpenseByUserAndCountry(user);
+//    }
 
 }

@@ -13,11 +13,12 @@ import java.util.UUID;
 public interface ExpenseService {
     void saveExpense(ExpenseRequestDto expenseRequestDto);
     Expense updateExpense(Long id,ExpenseRequestDto expenseRequestDto);
+    List<Expense> getAllByPostId(Long id);
     ExpenseResponseDto getExpenseById(Long id);
     void deleteExpenseById(Long id);
 //    List<Expense> getAllExpense();
-
-    List<ExpenseByUserAndCountryResponseDto>getExpenseByUserAndCountry(User user);
+//
+//    List<ExpenseByUserAndCountryResponseDto>getExpenseByUserAndCountry(User user);
 
 
 }
