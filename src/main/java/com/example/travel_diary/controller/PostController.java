@@ -26,12 +26,12 @@ public class PostController {
 
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
+    public void deleteById(@PathVariable(name = "id") Long id) {
         postService.deleteById(id);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody String title) {
+    public void update(@PathVariable(name = "id") Long id, @RequestBody String title) {
         postService.update(id, title);
     }
 
@@ -41,7 +41,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public Post getById(@PathVariable Long id) {
+    public Post getById(@PathVariable(name = "id") Long id) {
         return postService.getById(id);
     }
 
@@ -51,12 +51,12 @@ public class PostController {
     }
 
     @GetMapping("/top5/diaries")
-    public List<Post> getRecent5PostsByCountry(@RequestParam String country) {
+    public List<Post> getRecent5PostsByCountry(@RequestParam(name = "country") String country) {
         return postService.getRecent5PostsByCountry(country);
     }
 
     @GetMapping("recent/diaries")
-    public List<Post> getRecentPostsFirstByCountry(@RequestParam String country) {
+    public List<Post> getRecentPostsFirstByCountry(@RequestParam(name = "country") String country) {
         return postService.getRecentPostsFirstByCountry(country);
     }
 
