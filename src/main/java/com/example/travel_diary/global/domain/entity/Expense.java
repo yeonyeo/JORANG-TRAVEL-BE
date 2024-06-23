@@ -31,19 +31,9 @@ public class Expense {
     @Setter
     private LocalDate date;
 
-
-
     @JsonBackReference
     @JoinColumn (name = "POST_ID")
     @ManyToOne
     private Post post;
-
-
-
-    //set 지우고 /
-    // enum scope
-
-
-
 
 }

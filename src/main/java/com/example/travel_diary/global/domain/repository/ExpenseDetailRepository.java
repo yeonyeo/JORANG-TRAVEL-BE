@@ -10,3 +10,4 @@ public interface ExpenseDetailRepository extends JpaRepository<ExpenseDetail, Lo
     List<ExpenseDetail> findAllByCountryAndExpense_Post_User(String country, User user);
     List<ExpenseDetail> findAllByExpense_Post_User(User user);
 }
+

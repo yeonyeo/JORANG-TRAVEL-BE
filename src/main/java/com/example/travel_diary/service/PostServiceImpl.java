@@ -83,7 +83,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getByUser(User user) {
+    public List<Post> getAllByUser(User user) {
         return postRepository.findAllByUser(user);
     }
 }

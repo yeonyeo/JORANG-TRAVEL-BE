@@ -72,8 +72,7 @@ public class PostController {
     }
 
     @GetMapping("/user")
-    public List<Post> getByUser(@AuthenticationPrincipal User user) {
-        return postService.getByUser(user);
+    public List<Post> getAllByUser(@AuthenticationPrincipal User user) {
+        return postService.getAllByUser(user);
     }
-
 }

@@ -32,5 +32,5 @@ public class ExpenseController {
     public void deleteExpenseById(@PathVariable(name = "id") Long id) {
         expenseService.deleteExpenseById(id);
     }
-
 }
+

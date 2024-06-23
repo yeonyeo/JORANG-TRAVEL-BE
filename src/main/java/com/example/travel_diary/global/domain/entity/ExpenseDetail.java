@@ -27,10 +27,6 @@ public class ExpenseDetail {
     @Setter
     private String place;
 
-    @Column(name = "DATE")
-    @Setter
-    private LocalDate date;
-
     @Column(name = "CATEGORY", nullable = false)
     @Setter
     private String category;

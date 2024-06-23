@@ -24,7 +24,5 @@ public interface PostService {
 
     List<Post> getTop5LikeOnThisWeek();
     List<Post> getRecentPostsFirstBetweenTheseDates(LocalDate from, LocalDate to);
-
-    List<Post> getByUser(User user);
-
+    List<Post> getAllByUser(User user);
 }

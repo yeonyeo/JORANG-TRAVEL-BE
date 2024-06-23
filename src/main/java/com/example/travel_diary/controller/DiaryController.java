@@ -47,5 +47,4 @@ public class DiaryController {
         return diaryService.getDiaryByUserAndCountry(user);
     }
 
-
 }

@@ -28,8 +28,10 @@ ext {
 }
 
 dependencies {
+
 	implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
 	implementation platform('com.google.cloud:libraries-bom:26.40.0')
+
 
 
 	implementation 'com.sun.mail:javax.mail:1.6.2'
@@ -57,10 +59,7 @@ dependencyManagement {
 	}
 }
 
-//tasks.withType(JavaCompile) {
-//	options.compilerArgs << '-parameters'
-//}
-
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
