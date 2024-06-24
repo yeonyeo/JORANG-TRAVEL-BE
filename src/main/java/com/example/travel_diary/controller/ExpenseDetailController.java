@@ -3,6 +3,7 @@ package com.example.travel_diary.controller;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.request.ExpenseDetailRequestDto;
 import com.example.travel_diary.global.response.ExpenseDetailByUserAndCountryResponseDto;
+import com.example.travel_diary.global.response.ExpenseDetailChartResponseDto;
 import com.example.travel_diary.global.response.ExpenseDetailResponseDto;
 import com.example.travel_diary.service.ExpenseDetailService;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,11 @@ public class ExpenseDetailController {
     @GetMapping("/mypage")
     public List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(@AuthenticationPrincipal User user) {
         return expenseDetailService.getExpenseDetailByUserAndCountry(user);
+    }
+
+    @GetMapping("/postId/{postId}/chart")
+    public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(@PathVariable("postId") Long postId) {
+        return expenseDetailService.getExpenseDetailChart(postId);
     }
 }
 
