@@ -57,7 +57,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getRecentPostsFirst() {
-        return postRepository.findByDiaries_ScopeOrderByCreatedAtDesc(Scope.PUBLIC);
+        return postRepository.findAllByDiaries_ScopeOrderByCreatedAtDesc(Scope.PUBLIC);
     }
 
     @Override
