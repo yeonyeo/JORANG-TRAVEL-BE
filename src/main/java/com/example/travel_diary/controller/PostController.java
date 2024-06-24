@@ -75,4 +75,6 @@ public class PostController {
     public List<Post> getAllByUser(@AuthenticationPrincipal User user) {
         return postService.getAllByUser(user);
     }
+
+
 }
