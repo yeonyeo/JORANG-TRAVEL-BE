@@ -3,6 +3,9 @@ import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.type.Scope;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,10 +13,37 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByDiaries_Scope(Scope scope);
     List<Post> findByDiaries_ScopeOrderByCreatedAtDesc(Scope scope);
-    List<Post> findTop5ByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope scope, String country);
+
+    @Query("SELECT p " +
+            "FROM Post p " +
+            "JOIN FETCH p.diaries d " +
+            "WHERE d.scope = :scope " +
+            "AND d.country = :country " +
+            "ORDER BY p.createdAt DESC " +
+            "LIMIT 5")
+    List<Post> findTop5ByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(@Param("scope") Scope scope,@Param("country") String country);
+
+
+    @Query("SELECT p " +
+            "FROM Post p " +
+            "JOIN FETCH p.diaries d " +
+            "WHERE d.scope = :scope " +
+            "AND d.country = :country " +
+            "ORDER BY p.createdAt DESC")
     List<Post> findAllByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope scope, String country);
-    List<Post> findTop5ByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(Scope scope, LocalDateTime startOfWeek, LocalDateTime endOfWeek);
+    @Query("SELECT p " +
+            "FROM Post p " +
+            "JOIN FETCH p.diaries d " +
+            "WHERE d.scope = :scope " +
+            "AND p.createdAt BETWEEN :startOfWeek AND :endOfWeek " +
+//            "GROUP BY p.id " +
+            "ORDER BY p.love DESC " +
+            "LIMIT 5")
+    List<Post> findTop5ByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(@Param("scope") Scope scope,
+                                                                         @Param("startOfWeek") LocalDateTime startOfWeek,
+                                                                         @Param("endOfWeek") LocalDateTime endOfWeek);
     List<Post> findAllByDiaries_ScopeAndDiaries_DateBetweenOrderByCreatedAtDesc(Scope scope, LocalDate from, LocalDate to);
     List<Post> findAllByUser(User user);
+    List<Post> findTop5ByDiaries_ScopeOrderByCreatedAtDesc(Scope scope);
 }
 
