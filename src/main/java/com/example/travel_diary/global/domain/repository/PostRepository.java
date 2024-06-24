@@ -12,7 +12,13 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByDiaries_Scope(Scope scope);
-    List<Post> findByDiaries_ScopeOrderByCreatedAtDesc(Scope scope);
+
+    @Query("SELECT p " +
+            "FROM Post p " +
+            "JOIN FETCH p.diaries d " +
+            "WHERE d.scope = :scope " +
+            "ORDER BY p.createdAt DESC")
+    List<Post> findAllByDiaries_ScopeOrderByCreatedAtDesc(@Param("scope") Scope scope);
 
     @Query("SELECT p " +
             "FROM Post p " +
@@ -21,7 +27,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "AND d.country = :country " +
             "ORDER BY p.createdAt DESC " +
             "LIMIT 5")
-    List<Post> findTop5ByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(@Param("scope") Scope scope,@Param("country") String country);
+    List<Post> findTop5ByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(@Param("scope") Scope scope,
+                                                                             @Param("country") String country);
 
 
     @Query("SELECT p " +
@@ -30,7 +37,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "WHERE d.scope = :scope " +
             "AND d.country = :country " +
             "ORDER BY p.createdAt DESC")
-    List<Post> findAllByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope scope, String country);
+    List<Post> findAllByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(@Param("scope") Scope scope,
+                                                                            @Param("country")String country);
     @Query("SELECT p " +
             "FROM Post p " +
             "JOIN FETCH p.diaries d " +
