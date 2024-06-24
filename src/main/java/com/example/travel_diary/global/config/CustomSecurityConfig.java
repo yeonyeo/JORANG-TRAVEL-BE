@@ -38,7 +38,11 @@ public class CustomSecurityConfig {
 //                    .authenticated()
 //        );
         security.authorizeHttpRequests(req ->
-                req.requestMatchers("/api/v1/auths/**")
+                req.requestMatchers("/api/v1/auths/signUp",
+                                "/api/v1/auths/signIn",
+                                "/api/v1/posts/top5/recent",
+                                "/api/v1/posts/top5/like",
+                                "/api/v1/posts/top5/diaries")
                         .permitAll()
                         .anyRequest()
                         .authenticated()

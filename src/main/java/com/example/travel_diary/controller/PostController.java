@@ -55,7 +55,7 @@ public class PostController {
         return postService.getRecent5PostsByCountry(country);
     }
 
-    @GetMapping("recent/diaries")
+    @GetMapping("/recent/diaries")
     public List<Post> getRecentPostsFirstByCountry(@RequestParam(name = "country") String country) {
         return postService.getRecentPostsFirstByCountry(country);
     }
@@ -63,6 +63,11 @@ public class PostController {
     @GetMapping("/top5/like")
     public List<Post> getTop5LikeOnThisWeek() {
         return postService.getTop5LikeOnThisWeek();
+    }
+
+    @GetMapping("/top5/recent")
+    public List<Post> getTop5RecentPosts() {
+        return postService.getTop5RecentPosts();
     }
 
     @GetMapping("/dates")
