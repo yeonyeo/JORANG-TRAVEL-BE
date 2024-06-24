@@ -4,6 +4,7 @@ import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.PostRepository;
 import com.example.travel_diary.global.domain.type.Scope;
+import com.example.travel_diary.global.exception.PostNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,13 +32,14 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public void deleteById(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
         postRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public void update(Long id, String title) {
-        Post post = postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Post post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
         post.setTitle(title);
         post.setCreatedAt(LocalDateTime.now());
     }
@@ -49,7 +51,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post getById(Long id) {
-        return postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return postRepository.findById(id).orElseThrow(PostNotFoundException::new);
     }
 
 
@@ -74,6 +76,9 @@ public class PostServiceImpl implements PostService {
         LocalDateTime today = LocalDateTime.now().toLocalDate().atStartOfDay();
         LocalDateTime startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDateTime endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        System.out.println(today);
+        System.out.println(startOfWeek);
+        System.out.println(endOfWeek);
         return postRepository.findTop5ByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(Scope.PUBLIC, startOfWeek, endOfWeek);
     }
 
@@ -85,5 +90,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getAllByUser(User user) {
         return postRepository.findAllByUser(user);
+    }
+
+    @Override
+    public List<Post> getTop5RecentPosts() {
+        return postRepository.findTop5ByDiaries_ScopeOrderByCreatedAtDesc(Scope.PUBLIC);
     }
 }
