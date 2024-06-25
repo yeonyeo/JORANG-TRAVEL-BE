@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "EXPENSE_ID")
     private Long id;
 // 타이틀
 

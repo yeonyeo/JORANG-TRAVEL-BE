@@ -14,31 +14,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/expenseDetail")
+@RequestMapping("api/v1/expense-details")
 @RequiredArgsConstructor
 public class ExpenseDetailController {
     private final ExpenseDetailService expenseDetailService;
 
-    @PostMapping("/{id}")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveExpenseDetail(@RequestBody ExpenseDetailRequestDto requestDto) {
-        expenseDetailService.saveExpenseDetail(requestDto);
-    }
+    public void saveExpenseDetailbyExpenseId( @RequestBody ExpenseDetailRequestDto requestDto) {
 
+        expenseDetailService.saveExpenseDetailbyExpenseId(requestDto);
+    }
+//("/expenses/{expenseId}")
     @PutMapping("/{id}")
-    public void updateExpenseDetail(@PathVariable Long id, @RequestBody ExpenseDetailRequestDto requestDto) {
+    public void updateExpenseDetail(@PathVariable(name = "id") Long id, @RequestBody ExpenseDetailRequestDto requestDto) {
         expenseDetailService.updateExpenseDetail(id, requestDto);
     }
 //@GetMapping("/{expenseId")
 //public List<ExpenseDetail> getAllbyExpenseId(@PathVariable Long expenseId) {}
 
     @GetMapping("/{id}")
-    public ExpenseDetailResponseDto getExpenseDetailById(@PathVariable Long id) {
+    public ExpenseDetailResponseDto getExpenseDetailById(@PathVariable (name = "id")Long id) {
         return expenseDetailService.getExpenseDetailById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteExpenseDetailById(@PathVariable Long id) {
+    public void deleteExpenseDetailById(@PathVariable(name = "id") Long id) {
         expenseDetailService.deleteExpenseDetailById(id);
     }
 

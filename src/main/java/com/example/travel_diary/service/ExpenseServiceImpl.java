@@ -1,6 +1,7 @@
 package com.example.travel_diary.service;
 
 import com.example.travel_diary.global.domain.entity.Expense;
+import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.ExpenseRepository;
 import com.example.travel_diary.global.request.ExpenseRequestDto;
@@ -22,6 +23,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Transactional
     @Override
     public void saveExpense(ExpenseRequestDto expenseRequestDto) {
+
        expenseRepository.save(expenseRequestDto.toEntity());
     }
 
