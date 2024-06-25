@@ -22,6 +22,7 @@ public class ExpenseController {
         expenseService.saveExpense(req);
     }
 
+
     @PutMapping("/{id}")
     public void update(@PathVariable Long id, @RequestBody ExpenseRequestDto req) {
         expenseService.updateExpense(id, req);
@@ -29,14 +30,20 @@ public class ExpenseController {
     @GetMapping("/{postId}")
     public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);
 
+
+    @PutMapping("/update/{id}")
+    public Expense update(@PathVariable(name = "id") Long id, @RequestBody ExpenseRequestDto req) {
+        return expenseService.updateExpense(id, req);
+
     }
     @GetMapping("/{id}")
-    public ExpenseResponseDto getExpenseById(@PathVariable Long id) {
+    public ExpenseResponseDto getExpenseById(@PathVariable(name = "id") Long id) {
         return expenseService.getExpenseById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteExpenseById(@PathVariable Long id) {
+    public void deleteExpenseById(@PathVariable(name = "id") Long id) {
         expenseService.deleteExpenseById(id);
     }
 }
+

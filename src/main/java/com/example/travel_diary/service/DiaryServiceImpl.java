@@ -5,15 +5,13 @@ import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.DiaryRepository;
+import com.example.travel_diary.global.exception.DiaryNotFoundException;
 import com.example.travel_diary.global.request.DiaryRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,7 @@ public class DiaryServiceImpl implements DiaryService {
 
     @Override
     public Diary getById(Long id) {
-        return diaryRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     @Transactional
     public void updateDiary(Long id, DiaryRequestDto req) {
-        Diary diary = diaryRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Diary diary = diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
         diary.setTitle(req.title());
         diary.setContent(req.content());
         diary.setScope(req.scope());
@@ -57,6 +55,7 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     @Transactional
     public void deleteDiaryById(Long id) {
+        Diary diary = diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
         diaryRepository.deleteById(id);
     }
 

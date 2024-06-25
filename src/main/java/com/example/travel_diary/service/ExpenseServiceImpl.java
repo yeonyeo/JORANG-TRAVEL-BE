@@ -24,7 +24,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public void saveExpense(ExpenseRequestDto expenseRequestDto) {
 
+
        expenseRepository.save(expenseRequestDto.toEntity());
+
     }
 
     @Override
