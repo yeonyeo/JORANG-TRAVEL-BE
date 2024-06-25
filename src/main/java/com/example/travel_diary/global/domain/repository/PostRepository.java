@@ -16,7 +16,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByDiaries_ScopeAndDiaries_CountryOrderByCreatedAtDesc(Scope scope, String country);
     List<Post> findTop5ByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(Scope scope, LocalDateTime startOfWeek, LocalDateTime endOfWeek);
     List<Post> findAllByDiaries_ScopeAndDiaries_DateBetweenOrderByCreatedAtDesc(Scope scope, LocalDate from, LocalDate to);
-    List<Post> findAllByUser(User user);
+    List<Post> findAllByUserOrderByCreatedAtDesc(User user);
 
     Page<Post> findAllByUser(User user, Pageable pageable);
 }
