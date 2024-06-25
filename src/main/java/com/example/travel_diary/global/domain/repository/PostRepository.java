@@ -2,6 +2,8 @@ package com.example.travel_diary.global.domain.repository;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.type.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,5 +17,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findTop5ByDiaries_ScopeAndCreatedAtBetweenOrderByLoveDesc(Scope scope, LocalDateTime startOfWeek, LocalDateTime endOfWeek);
     List<Post> findAllByDiaries_ScopeAndDiaries_DateBetweenOrderByCreatedAtDesc(Scope scope, LocalDate from, LocalDate to);
     List<Post> findAllByUser(User user);
+
+    Page<Post> findAllByUser(User user, Pageable pageable);
 }
 

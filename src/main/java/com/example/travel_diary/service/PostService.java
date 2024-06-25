@@ -2,6 +2,7 @@ package com.example.travel_diary.service;
 
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
+import org.springframework.data.domain.Page;
 
 
 import java.time.LocalDate;
@@ -25,4 +26,6 @@ public interface PostService {
     List<Post> getTop5LikeOnThisWeek();
     List<Post> getRecentPostsFirstBetweenTheseDates(LocalDate from, LocalDate to);
     List<Post> getAllByUser(User user);
+
+    Page<Post> getList(User user, int page);
 }
