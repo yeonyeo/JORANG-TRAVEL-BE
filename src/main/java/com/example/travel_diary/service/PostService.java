@@ -28,4 +28,7 @@ public interface PostService {
     List<Post> getAllByUser(User user);
 
     Page<Post> getList(User user, int page);
+
+    List<Post> getTop5RecentPosts();
+
 }
