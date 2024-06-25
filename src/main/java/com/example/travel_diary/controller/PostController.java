@@ -3,7 +3,9 @@ package com.example.travel_diary.controller;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.service.PostService;
+import com.example.travel_diary.service.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -79,5 +81,10 @@ public class PostController {
     @GetMapping("/user")
     public List<Post> getAllByUser(@AuthenticationPrincipal User user) {
         return postService.getAllByUser(user);
+    }
+
+    @GetMapping("/user/list")
+    public Page<Post> list(@AuthenticationPrincipal User user, @RequestParam(value="page", defaultValue="0") int page) {
+        return this.postService.getList(user, page);
     }
 }

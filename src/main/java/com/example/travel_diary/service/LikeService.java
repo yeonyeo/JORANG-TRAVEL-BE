@@ -4,6 +4,7 @@ import com.example.travel_diary.global.domain.entity.Like;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.response.LikeResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface LikeService {
     Long countLike(Long postId);
 
     Boolean checkLike(User user, long postId);
+
+    Page<LikeResponse> getList(User user, int page);
 }
