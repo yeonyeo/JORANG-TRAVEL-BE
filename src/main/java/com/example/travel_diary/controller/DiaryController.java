@@ -26,7 +26,7 @@ public class DiaryController {
     @GetMapping("/posts/{postId}")
     public List<Diary> getAllByPostId(@PathVariable(name = "postId") Long postId) {
         return diaryService.getAllByPostId(postId);
-    };
+    }
 
     @GetMapping("/{id}")
     public Diary getById(@PathVariable(name = "id") Long id) {

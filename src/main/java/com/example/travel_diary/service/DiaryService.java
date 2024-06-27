@@ -12,7 +12,7 @@ public interface DiaryService {
     List<Diary> getAllByPostId(Long postId);
     void updateDiary(Long id, DiaryRequestDto req);
     void deleteDiaryById(Long id);
-    List<String>getDiaryByUserAndCountry(User user);
+    List<String> getDiaryByUserAndCountry(User user);
 
 //    String summarizeByPostId(Long postId);
 //

@@ -2,13 +2,20 @@ spring:
   application:
     name: travel-diary
   datasource:
-    url: jdbc:mysql://localhost:3306/jorang?characterEncoding=UTF-8&serverTimezone=Asia/Seoul # localhost? ??? kube?? service??? ?? ??
+    url: jdbc:mysql://mysql:3306/jorang?characterEncoding=UTF-8&serverTimezone=Asia/Seoul # localhost? ??? kube?? service??? ?? ??
     username: root # {DB_USER} -> ??? ?? ??? ?? ??
     password: 1234 # {DB_PASSWORD} -> ??? ?? ??? ?? ??
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+#  cloud:
+#    gcp:
+#      storage:
+#        credentials:
+#          location: classpath:titanium-vision-424101-s9-cf79898d4168.json
+#        project-id: titanium-vision-424101-s9
+#        bucket: jorang
 
 mail:
   sender: ksh58997941@gmail.com
