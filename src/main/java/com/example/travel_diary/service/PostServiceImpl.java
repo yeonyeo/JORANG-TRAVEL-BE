@@ -7,6 +7,10 @@ import com.example.travel_diary.global.domain.type.Scope;
 import com.example.travel_diary.global.exception.PostNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -89,7 +94,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAllByUser(User user) {
-        return postRepository.findAllByUser(user);
+        return postRepository.findAllByUserOrderByCreatedAtDesc (user);
+    }
+
+    @Override
+    public Page<Post> getList(User user, int page) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createdAt"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return this.postRepository.findAllByUser(user, pageable);
     }
 
     @Override

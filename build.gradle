@@ -31,7 +31,8 @@ dependencies {
 
 //	implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
 //	implementation platform('com.google.cloud:libraries-bom:26.40.0')
-//
+
+
 //	implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter', version: '1.2.5.RELEASE'
 //	implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-storage', version: '1.2.5.RELEASE'
 

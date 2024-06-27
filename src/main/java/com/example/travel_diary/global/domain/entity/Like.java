@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -30,4 +31,5 @@ public class Like {
     @JoinColumn(name = "POST_ID")
     @ManyToOne
     Post post;
+
 }

@@ -1,3 +1,4 @@
+//
 //package com.example.travel_diary.service;
 //
 //import com.example.travel_diary.global.domain.entity.Diary;
@@ -77,3 +78,4 @@
 //        photoRepository.deleteById(id);
 //    }
 //}
+//
