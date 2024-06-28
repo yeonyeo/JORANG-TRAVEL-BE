@@ -25,7 +25,9 @@ public class CustomSecurityConfig {
             CorsConfiguration corsConfiguration = new CorsConfiguration();
             corsConfiguration.addAllowedHeader("*");
             corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","OPTIONS"));
-            corsConfiguration.setAllowedOrigins(List.of("*"));
+//            corsConfiguration.setAllowedOrigins(List.of("*"));
+            corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8002", "http://localhost:8003", "http://localhost:8004", "http://localhost:8005"));
+
 //            corsConfiguration.setAllowCredentials(true);
             return corsConfiguration;
         }));
