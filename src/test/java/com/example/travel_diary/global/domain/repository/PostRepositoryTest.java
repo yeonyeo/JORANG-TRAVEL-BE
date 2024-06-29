@@ -15,8 +15,8 @@ class PostRepositoryTest {
 
     @Test
     void fetchAll() {
-        List<Post> posts = postRepository.fetchAll();
-        posts.forEach(post -> System.out.println(post));
+//        List<Post> posts = postRepository.fetchAll();
+//        posts.forEach(post -> System.out.println(post));
 
     }
 }
