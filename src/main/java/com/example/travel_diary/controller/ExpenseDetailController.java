@@ -4,6 +4,7 @@ import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.entity.ExpenseDetail;
 import com.example.travel_diary.global.request.ExpenseDetailRequestDto;
 import com.example.travel_diary.global.response.ExpenseDetailByUserAndCountryResponseDto;
+import com.example.travel_diary.global.response.ExpenseDetailChartResponseDto;
 import com.example.travel_diary.global.response.ExpenseDetailResponseDto;
 import com.example.travel_diary.service.ExpenseDetailService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,10 @@ public class ExpenseDetailController {
 //public List<ExpenseDetail> getAllbyExpenseId(@PathVariable Long expenseId) {}
 
     @GetMapping("/{id}")
+
     public ExpenseDetailResponseDto getExpenseDetailById(@PathVariable (name = "id")Long id) {
+
+   
         return expenseDetailService.getExpenseDetailById(id);
     }
 
@@ -47,6 +51,7 @@ public class ExpenseDetailController {
     public List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(@AuthenticationPrincipal User user) {
         return expenseDetailService.getExpenseDetailByUserAndCountry(user);
     }
+
     @GetMapping("/by-post/{postId}")
     public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable (name="postId") Long postId) {
         return expenseDetailService.getExpenseDetailsByPostId(postId);
@@ -61,4 +66,13 @@ public class ExpenseDetailController {
 //@GetMapping("/by-post/{postId}")
 //public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable Long postId) {
 //    return expenseDetailService.getExpenseDetailsByPostId(postId);
+
+
+
+    @GetMapping("/postId/{postId}/chart")
+    public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(@PathVariable("postId") Long postId) {
+        return expenseDetailService.getExpenseDetailChart(postId);
+    }
+}
+
 
