@@ -46,7 +46,7 @@ public class JwtUtil {
     // Header에서 Token 값 추출
     public String resolveToken(HttpServletRequest request) {
         try {
-            System.out.println("**********************8resolveToken 들어옴");
+            System.out.println("************ resolveToken 들어옴 *****************");
             System.out.println(request.getHeader("Authorization"));
             return request.getHeader("Authorization");
         } catch (Exception e) {

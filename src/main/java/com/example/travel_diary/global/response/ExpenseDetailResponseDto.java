@@ -9,11 +9,9 @@ public record ExpenseDetailResponseDto(
         Long id,
         int cost,
         String place,
-
         String category,
-        String scope,
-        LocalDateTime createdAt,
-        String country
+        LocalDateTime createdAt
+
 ) {
     public static ExpenseDetailResponseDto from(ExpenseDetail expenseDetail) {
         return new ExpenseDetailResponseDto(
@@ -21,9 +19,7 @@ public record ExpenseDetailResponseDto(
                 expenseDetail.getCost(),
                 expenseDetail.getPlace(),
                 expenseDetail.getCategory(),
-                expenseDetail.getScope(),
-                expenseDetail.getCreatedAt(),
-                expenseDetail.getCountry()
+                expenseDetail.getCreatedAt()
         );
     }
 }

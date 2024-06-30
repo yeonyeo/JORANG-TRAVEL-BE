@@ -14,4 +14,10 @@ public class PostExceptionController {
     public String postNotFoundExceptionHandler(PostNotFoundException e) {
         return e.getMessage();
     }
+
+    @ExceptionHandler(NotPublicPostException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String notPublicPostException(NotPublicPostException e) {
+        return e.getMessage();
+    }
 }

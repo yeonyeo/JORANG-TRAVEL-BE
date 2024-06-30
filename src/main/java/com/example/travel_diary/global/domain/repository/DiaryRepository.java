@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
     List<Diary> findAllByPost_Id(Long postId);
 
-    List<Diary> findAllByPost_User(User user);
 }

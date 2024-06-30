@@ -14,9 +14,9 @@ public record ExpenseRequestDto (
 
     ){
     public Expense toEntity(){
-        Post post = Post.builder().id(this.postId).build();
+        Post post = Post.builder().id(postId).build();
         return Expense.builder()
-                .date(this.date)
+                .date(date)
                 .post(post)
                 .build();
 
