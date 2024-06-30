@@ -16,15 +16,26 @@ import java.util.List;
 public class ExpenseController {
     private final ExpenseService expenseService;
 
-    @PostMapping
+    @PostMapping("/posts/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody ExpenseRequestDto req) {
-        expenseService.saveExpense(req);
+    public void save(@PathVariable(name = "postId") Long postId,@RequestBody ExpenseRequestDto expenseRequestDto) {
+        expenseService.saveExpense(postId,expenseRequestDto);
     }
+
 
 
 //    @GetMapping("/{postId}")
 //    public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);}
+
+
+    @PutMapping("/update/{id}")
+    public Expense update(@PathVariable(name = "id") Long id, @RequestBody ExpenseRequestDto req) {
+        return expenseService.updateExpense(id, req);
+
+    }
+    @GetMapping("/{postId}")
+    public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);
+
 
     @PutMapping("/update/{id}")
     public Expense update(@PathVariable(name = "id") Long id, @RequestBody ExpenseRequestDto req) {

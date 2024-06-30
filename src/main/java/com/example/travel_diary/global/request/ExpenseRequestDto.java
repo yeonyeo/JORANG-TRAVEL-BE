@@ -10,10 +10,9 @@ public record ExpenseRequestDto (
     LocalDate date
     ){
     public Expense toEntity(){
+
         return Expense.builder()
                 .date(date)
                 .build();
-
     }
-
 }

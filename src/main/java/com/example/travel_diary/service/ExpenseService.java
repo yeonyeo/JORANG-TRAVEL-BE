@@ -5,7 +5,7 @@ import com.example.travel_diary.global.request.ExpenseRequestDto;
 import com.example.travel_diary.global.response.ExpenseResponseDto;
 
 public interface ExpenseService {
-    void saveExpense(ExpenseRequestDto expenseRequestDto);
+    void saveExpense(Long postId,ExpenseRequestDto expenseRequestDto);
     Expense updateExpense(Long id,ExpenseRequestDto expenseRequestDto);
     ExpenseResponseDto getExpenseById(Long id);
     void deleteExpenseById(Long id);

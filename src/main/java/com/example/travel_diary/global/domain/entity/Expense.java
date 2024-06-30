@@ -29,17 +29,19 @@ public class Expense {
     private Long id;
 // 타이틀
 
+
     @Column( name = "DATE")
     @Setter
     private LocalDate date;
 
+
     @JsonBackReference
     @JoinColumn (name = "POST_ID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Post post;
+
 
     @JsonManagedReference
     @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
     private List<ExpenseDetail> expenseDetails;
-
 }

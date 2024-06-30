@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +24,14 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
 
     @Transactional
     @Override
-    public void saveExpenseDetail(ExpenseDetailRequestDto requestDto) {
-        expenseDetailRepository.save(requestDto.toEntity());
+
+    public void saveExpenseDetailbyExpenseId( List<ExpenseDetailRequestDto> requestDto) {
+        requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
+//        expenseDetailRepository.save(requestDto.toEntity());
+
+   // public void saveExpenseDetail(ExpenseDetailRequestDto requestDto) {
+     //   expenseDetailRepository.save(requestDto.toEntity());
+
     }
 
     @Override
@@ -76,6 +83,14 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
 //    }
 
     @Override
+    public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(Long postId) {
+        List<ExpenseDetail> expenseDetails = expenseDetailRepository.findAllByExpense_Post_Id(postId);
+        return expenseDetails.stream()
+                .map(ExpenseDetailResponseDto::from)
+                .collect(Collectors.toList());
+
+
+    @Override
     public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(Long postId) {
         List<ExpenseDetail> allByExpensePostId = expenseDetailRepository.findAllByExpense_Post_Id(postId);
         List<String> getCategory = new ArrayList<>(); // 초기화
@@ -106,5 +121,6 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
             result.add(new ExpenseDetailChartResponseDto(dto.cost(), total, dto.category(), percent));
         }
         return result;
+
     }
 }

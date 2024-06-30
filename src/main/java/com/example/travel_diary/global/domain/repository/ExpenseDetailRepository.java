@@ -9,6 +9,10 @@ import java.util.List;
 public interface ExpenseDetailRepository extends JpaRepository<ExpenseDetail, Long> {
 
     List<ExpenseDetail> findAllByExpense_Post_Id(Long postId);
+
+
+    List<ExpenseDetail> findAllByExpense_Post_Id(Long postId);
     List<ExpenseDetail> findAllByCategoryAndExpense_Post_Id(String category, Long postId);
+
 }
 
