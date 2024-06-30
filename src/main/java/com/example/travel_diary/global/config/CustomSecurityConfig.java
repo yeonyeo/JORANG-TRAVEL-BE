@@ -45,7 +45,9 @@ public class CustomSecurityConfig {
                                 "/api/v1/posts/top5/recent",
                                 "/api/v1/posts/top5/like",
                                 "/api/v1/posts/top5/diaries",
-                                "/api/v1/posts/recent")
+                                "/api/v1/posts/recent",
+                                "api/v1/country/**"
+                                )
                         .permitAll()
                         .anyRequest()
                         .authenticated()
