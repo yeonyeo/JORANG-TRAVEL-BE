@@ -46,10 +46,10 @@ public class ExpenseDetailController {
         expenseDetailService.deleteExpenseDetailById(id);
     }
 
-    @GetMapping("/mypage")
-    public List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(@AuthenticationPrincipal User user) {
-        return expenseDetailService.getExpenseDetailByUserAndCountry(user);
-    }
+//    @GetMapping("/mypage")
+//    public List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(@AuthenticationPrincipal User user) {
+//        return expenseDetailService.getExpenseDetailByUserAndCountry(user);
+//    }
 
     @GetMapping("/by-post/{postId}")
     public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable (name="postId") Long postId) {

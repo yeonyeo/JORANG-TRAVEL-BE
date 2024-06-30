@@ -32,20 +32,16 @@ public class CustomSecurityConfig {
             return corsConfiguration;
         }));
         security.userDetailsService(userDetailsService);
-
-//        security.authorizeHttpRequests(req ->
-//            req.requestMatchers("/api/v1/auths/signUp", "/api/v1/auths/signIn")
-//                    .permitAll()
-//                    .anyRequest()
-//                    .authenticated()
-//        );
         security.authorizeHttpRequests(req ->
                 req.requestMatchers("/api/v1/auths/signUp",
                                 "/api/v1/auths/signIn",
+                                "/api/v1/auths/loginId/**",
+                                "/api/v1/auths/email/**",
                                 "/api/v1/posts/top5/recent",
                                 "/api/v1/posts/top5/like",
                                 "/api/v1/posts/top5/diaries",
                                 "/api/v1/posts/recent",
+                                "/api/v1/posts/recent/diaries",
                                 "api/v1/country/**"
                                 )
                         .permitAll()

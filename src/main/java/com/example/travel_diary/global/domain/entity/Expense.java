@@ -42,10 +42,6 @@ public class Expense {
 
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "expense",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
     private List<ExpenseDetail> expenseDetails;
-    //set 지우고 /
-    // enum scope
-
-
 }

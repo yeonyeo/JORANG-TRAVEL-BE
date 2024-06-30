@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/expenses")
 @RequiredArgsConstructor
@@ -22,16 +24,17 @@ public class ExpenseController {
 
 
 
+//    @GetMapping("/{postId}")
+//    public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);}
+
+
     @PutMapping("/update/{id}")
     public Expense update(@PathVariable(name = "id") Long id, @RequestBody ExpenseRequestDto req) {
         return expenseService.updateExpense(id, req);
 
-
-    
     }
     @GetMapping("/{postId}")
     public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);
-
 
 
     @PutMapping("/update/{id}")
