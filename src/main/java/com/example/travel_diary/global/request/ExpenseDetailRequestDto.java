@@ -7,25 +7,22 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record ExpenseDetailRequestDto(
-        Long expenseId,
         int cost,
         String place,
         String category,
         String scope,
-        String country
-
+        String country,
+        Expense expense
 ) {
     public ExpenseDetail toEntity() {
-        Expense expense = Expense.builder().id(this.expenseId).build();
         return ExpenseDetail.builder()
-                .expense(expense)
-                .cost(this.cost)
-                .place(this.place)
-                .category(this.category)
-                .scope(this.scope)
-                .country(this.country)
+                .cost(cost)
+                .place(place)
+                .category(category)
+                .scope(scope)
+                .country(country)
                 .createdAt(LocalDateTime.now())
-
+                .expense(expense)
                 .build();
     }
 }
