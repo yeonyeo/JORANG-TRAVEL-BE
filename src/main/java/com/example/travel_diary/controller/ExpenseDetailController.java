@@ -21,7 +21,7 @@ public class ExpenseDetailController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveExpenseDetailbyExpenseId( @RequestBody ExpenseDetailRequestDto requestDto) {
+    public void saveExpenseDetailbyExpenseId( @RequestBody List<ExpenseDetailRequestDto> requestDto) {
 
         expenseDetailService.saveExpenseDetailbyExpenseId(requestDto);
     }
@@ -47,4 +47,18 @@ public class ExpenseDetailController {
     public List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(@AuthenticationPrincipal User user) {
         return expenseDetailService.getExpenseDetailByUserAndCountry(user);
     }
+    @GetMapping("/by-post/{postId}")
+    public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable (name="postId") Long postId) {
+        return expenseDetailService.getExpenseDetailsByPostId(postId);
+    }
 }
+
+//@GetMapping("/by-post/{postId}")
+//public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable(name = "postId") Long postId) {
+//    // postId에 해당하는 모든 ExpenseDetails를 가져오는 구현
+//    return expenseDetailServive.getExpenseDetailsByPostId(postId);
+//}
+//@GetMapping("/by-post/{postId}")
+//public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable Long postId) {
+//    return expenseDetailService.getExpenseDetailsByPostId(postId);
+

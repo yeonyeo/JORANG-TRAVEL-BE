@@ -4,6 +4,7 @@ import com.example.travel_diary.global.domain.entity.Expense;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.ExpenseRepository;
+import com.example.travel_diary.global.domain.repository.PostRepository;
 import com.example.travel_diary.global.request.ExpenseRequestDto;
 import com.example.travel_diary.global.response.ExpenseDetailByUserAndCountryResponseDto;
 import com.example.travel_diary.global.response.ExpenseResponseDto;
@@ -20,11 +21,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ExpenseServiceImpl implements ExpenseService {
     private final ExpenseRepository expenseRepository;
+    private final PostRepository postRepository;
     @Transactional
     @Override
-    public void saveExpense(ExpenseRequestDto expenseRequestDto) {
-
-       expenseRepository.save(expenseRequestDto.toEntity());
+    public void saveExpense(Long postId,ExpenseRequestDto expenseRequestDto) {
+//expenseRequestDto.forEach(e -> expenseRepository.save(e.toEntity()));
+//        Post post = Post.builder().id(postId).build();
+//        Expense expense = expenseRequestDto.toEntity(post);
+        Post post = postRepository.findById(postId).orElseThrow(EntityNotFoundException::new); // Post 객체를 데이터베이스에서 조회
+        Expense expense = expenseRequestDto.toEntity(post);
+//        Expense savedExpense = expenseRepository.save(expense);
+       expenseRepository.save(expense);
     }
 
     @Override

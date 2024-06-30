@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,9 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
 
     @Transactional
     @Override
-    public void saveExpenseDetailbyExpenseId(ExpenseDetailRequestDto requestDto) {
-        expenseDetailRepository.save(requestDto.toEntity());
+    public void saveExpenseDetailbyExpenseId( List<ExpenseDetailRequestDto> requestDto) {
+        requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
+//        expenseDetailRepository.save(requestDto.toEntity());
     }
 
     @Override
@@ -73,5 +75,12 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
             result.add(new ExpenseDetailByUserAndCountryResponseDto(country, total));
         }
         return result;
+    }
+    @Override
+    public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(Long postId) {
+        List<ExpenseDetail> expenseDetails = expenseDetailRepository.findAllByExpense_Post_Id(postId);
+        return expenseDetails.stream()
+                .map(ExpenseDetailResponseDto::from)
+                .collect(Collectors.toList());
     }
 }
