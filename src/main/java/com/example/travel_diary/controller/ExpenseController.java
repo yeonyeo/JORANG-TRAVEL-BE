@@ -22,14 +22,13 @@ public class ExpenseController {
         expenseService.saveExpense(req);
     }
 
-    @GetMapping("/{postId}")
-    public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);}
 
+//    @GetMapping("/{postId}")
+//    public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);}
 
     @PutMapping("/update/{id}")
     public Expense update(@PathVariable(name = "id") Long id, @RequestBody ExpenseRequestDto req) {
         return expenseService.updateExpense(id, req);
-
     }
     @GetMapping("/{id}")
     public ExpenseResponseDto getExpenseById(@PathVariable(name = "id") Long id) {

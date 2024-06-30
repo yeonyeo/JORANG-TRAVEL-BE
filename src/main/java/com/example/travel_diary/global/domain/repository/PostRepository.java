@@ -1,8 +1,4 @@
 package com.example.travel_diary.global.domain.repository;
-
-
-//import com.example.travel_diary.global.domain.entity.Photo;
-
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.type.Scope;

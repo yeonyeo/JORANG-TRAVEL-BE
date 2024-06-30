@@ -41,6 +41,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(()->"ROLE_USER");

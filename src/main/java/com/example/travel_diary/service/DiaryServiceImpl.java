@@ -7,6 +7,7 @@ import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.DiaryRepository;
 import com.example.travel_diary.global.exception.DiaryNotFoundException;
 import com.example.travel_diary.global.request.DiaryRequestDto;
+import com.example.travel_diary.global.response.MyDiaryResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -69,6 +70,12 @@ public class DiaryServiceImpl implements DiaryService {
             }
         }
         return countryByUser;
+    }
+
+    @Override
+    public List<MyDiaryResponseDto> getDiaryByUser(User user) {
+        List<Diary> allByPostUser = diaryRepository.findAllByPost_User(user);
+        return allByPostUser.stream().map(MyDiaryResponseDto::from).toList();
     }
 
 

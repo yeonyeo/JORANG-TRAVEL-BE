@@ -23,7 +23,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
 
     @Transactional
     @Override
-    public void saveExpenseDetailbyExpenseId(ExpenseDetailRequestDto requestDto) {
+    public void saveExpenseDetail(ExpenseDetailRequestDto requestDto) {
         expenseDetailRepository.save(requestDto.toEntity());
     }
 

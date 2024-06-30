@@ -17,6 +17,8 @@ spring:
 #        project-id: titanium-vision-424101-s9
 #        bucket: jorang
 
+
+
 mail:
   sender: ksh58997941@gmail.com
   password: yctq gzba uorl gitm
