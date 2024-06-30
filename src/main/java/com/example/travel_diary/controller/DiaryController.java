@@ -34,19 +34,19 @@ public class DiaryController {
         return diaryService.getById(id);
     }
 
-    @PutMapping("/{id}")
-    public void updateDiary(@PathVariable(name = "id") Long id, @RequestBody DiaryRequestDto req) {
-        diaryService.updateDiary(id, req);
+    @PutMapping
+    public void updateDiary(@RequestBody List<DiaryRequestDto> req) {
+        diaryService.updateDiary(req);
     };
     @DeleteMapping("/{id}")
     public void deleteDiaryById(@PathVariable(name = "id") Long id) {
         diaryService.deleteDiaryById(id);
     };
 
-    @GetMapping("/mypage")
-    public List<String> getDiaryByUserAndCountry(@AuthenticationPrincipal User user) {
-        return diaryService.getDiaryByUserAndCountry(user);
-    }
+//    @GetMapping("/mypage")
+//    public List<String> getDiaryByUserAndCountry(@AuthenticationPrincipal User user) {
+//        return diaryService.getDiaryByUserAndCountry(user);
+//    }
 
     @GetMapping("/mydiary")
     public List<MyDiaryResponseDto> getDiaryByUser(@AuthenticationPrincipal User user) {

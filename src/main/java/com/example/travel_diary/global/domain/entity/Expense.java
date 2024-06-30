@@ -1,11 +1,13 @@
 package com.example.travel_diary.global.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -35,5 +37,9 @@ public class Expense {
     @JoinColumn (name = "POST_ID")
     @ManyToOne
     private Post post;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
+    private List<ExpenseDetail> expenseDetails;
 
 }

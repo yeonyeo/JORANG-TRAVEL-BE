@@ -27,8 +27,11 @@ ext {
 	set('springCloudVersion', "2023.0.2")
 }
 
-dependencies {
 
+//	implementation 'co.elastic.clients:elasticsearch-java:8.14.1'
+//	implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+
+dependencies {
 	implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
 	implementation platform('com.google.cloud:libraries-bom:26.40.0')
 
