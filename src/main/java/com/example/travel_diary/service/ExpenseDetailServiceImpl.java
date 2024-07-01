@@ -1,10 +1,14 @@
 package com.example.travel_diary.service;
 
+import com.example.travel_diary.global.domain.entity.Expense;
 import com.example.travel_diary.global.domain.entity.ExpenseDetail;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.ExpenseDetailRepository;
+import com.example.travel_diary.global.domain.repository.ExpenseRepository;
 import com.example.travel_diary.global.request.ExpenseDetailRequestDto;
 import com.example.travel_diary.global.response.ExpenseDetailByUserAndCountryResponseDto;
+import com.example.travel_diary.global.response.ExpenseDetailChartResponseDto;
+import com.example.travel_diary.global.response.ExpenseDetailChartTempResponseDto;
 import com.example.travel_diary.global.response.ExpenseDetailResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +23,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     private final ExpenseDetailRepository expenseDetailRepository;
+    private final ExpenseRepository expenseRepository;
+
+
 
     @Transactional
     @Override
-    public void saveExpenseDetailbyExpenseId( List<ExpenseDetailRequestDto> requestDto) {
-        requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
-
+    public void saveExpenseDetailbyExpenseId(Long expenseId, List<ExpenseDetailRequestDto> requestDto) {
+        Expense expense = expenseRepository.findById(expenseId).orElseThrow(EntityNotFoundException::new);
+        List<ExpenseDetail> expenseDetails = requestDto.stream()
+                .map(dto -> dto.toEntity(expense))  // Expense 객체를 포함하여 Entity 생성
+                .collect(Collectors.toList());
+        expenseDetailRepository.saveAll(expenseDetails);
     }
 
     @Override
@@ -83,7 +93,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
                 .map(ExpenseDetailResponseDto::from)
                 .collect(Collectors.toList());
 
-
+    }
 
     @Override
     public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(Long postId) {

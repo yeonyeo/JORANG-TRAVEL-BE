@@ -1,2 +1,6 @@
-package com.example.travel_diary.global.response;public class ExpenseDetailChartTempResponseDto {
+package com.example.travel_diary.global.response;
+
+public record ExpenseDetailChartTempResponseDto(
+        int cost, String category
+) {
 }

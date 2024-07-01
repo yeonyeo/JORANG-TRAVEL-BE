@@ -4,6 +4,7 @@ import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.entity.ExpenseDetail;
 import com.example.travel_diary.global.request.ExpenseDetailRequestDto;
 import com.example.travel_diary.global.response.ExpenseDetailByUserAndCountryResponseDto;
+import com.example.travel_diary.global.response.ExpenseDetailChartResponseDto;
 import com.example.travel_diary.global.response.ExpenseDetailResponseDto;
 import com.example.travel_diary.service.ExpenseDetailService;
 import lombok.RequiredArgsConstructor;
@@ -19,19 +20,14 @@ import java.util.List;
 public class ExpenseDetailController {
     private final ExpenseDetailService expenseDetailService;
 
-    @PostMapping
+    @PostMapping("/expenses/{expenseId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveExpenseDetailbyExpenseId( @RequestBody List<ExpenseDetailRequestDto> requestDto) {
+    public void saveExpenseDetailbyExpenseId( @PathVariable Long expenseId ,@RequestBody List<ExpenseDetailRequestDto> requestDto) {
 
-        expenseDetailService.saveExpenseDetailbyExpenseId(requestDto);
-
-    public void saveExpenseDetail(@RequestBody ExpenseDetailRequestDto requestDto) {
-        expenseDetailService.saveExpenseDetail(requestDto);
-
+        expenseDetailService.saveExpenseDetailbyExpenseId(expenseId,requestDto);
     }
 
-        expenseDetailService.saveExpenseDetailbyExpenseId(requestDto);
-    }
+
 //("/expenses/{expenseId}")
     @PutMapping("/{id}")
     public void updateExpenseDetail(@PathVariable(name = "id") Long id, @RequestBody ExpenseDetailRequestDto requestDto) {
@@ -60,7 +56,6 @@ public class ExpenseDetailController {
     public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable (name="postId") Long postId) {
         return expenseDetailService.getExpenseDetailsByPostId(postId);
     }
-}
 
 //@GetMapping("/by-post/{postId}")
 //public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable(name = "postId") Long postId) {
