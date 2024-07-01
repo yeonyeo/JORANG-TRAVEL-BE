@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ExpenseDetailService {
 
-    void saveExpenseDetailbyExpenseId(List<ExpenseDetailRequestDto> requestDto);
+    void saveExpenseDetailbyExpenseId(Long expenseId, List<ExpenseDetailRequestDto> requestDto);
 
 
     ExpenseDetailResponseDto getExpenseDetailById(Long id);

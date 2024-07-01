@@ -25,7 +25,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     @Transactional
     @Override
 
-    public void saveExpenseDetailbyExpenseId( List<ExpenseDetailRequestDto> requestDto) {
+    public void saveExpenseDetailbyExpenseId(Long expenseId, List<ExpenseDetailRequestDto> requestDto) {
         requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
 //        expenseDetailRepository.save(requestDto.toEntity());
 

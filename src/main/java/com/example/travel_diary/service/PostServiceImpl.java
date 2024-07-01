@@ -4,6 +4,7 @@ import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.PostRepository;
 import com.example.travel_diary.global.domain.type.Scope;
+
 import com.example.travel_diary.global.exception.PostNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAll() {
-        return postRepository.findAllByDiaries_Scope(Scope.PUBLIC);
+        return postRepository.findAllByScope(Scope.PUBLIC);
     }
 
     @Override
@@ -90,7 +91,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getRecentPostsFirstBetweenTheseDates(LocalDate from, LocalDate to) {
-        return postRepository.findAllByDiaries_ScopeAndDiaries_DateBetweenOrderByCreatedAtDesc(Scope.PUBLIC, from, to);
+        return postRepository.findAllByScopeAndDiaries_DateBetweenOrderByCreatedAtDesc(Scope.PUBLIC, from, to);
     }
 
     @Override
@@ -108,6 +109,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getTop5RecentPosts() {
-        return postRepository.findTop5ByDiaries_ScopeOrderByCreatedAtDesc(Scope.PUBLIC);
+        return postRepository.findTop5ByScopeOrderByCreatedAtDesc(Scope.PUBLIC);
     }
 }

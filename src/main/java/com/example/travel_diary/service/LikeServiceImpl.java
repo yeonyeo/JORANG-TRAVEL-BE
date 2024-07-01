@@ -46,7 +46,7 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public List<LikeResponse> getPosts(User user) {
-        List<Like> likes = likeRepository.findAllByUser(user);
+        List<Like> likes = likeRepository.findAllByUserOrderByIdDesc(user);
         if (likes.isEmpty()) return null;
         return likes.stream().map(LikeResponse::from).toList();
     }
