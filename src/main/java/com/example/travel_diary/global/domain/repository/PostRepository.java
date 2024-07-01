@@ -30,7 +30,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAllByUser(User user, Pageable pageable);
 
-    List<Post> findTop5ByDiaries_ScopeOrderByCreatedAtDesc(Scope scope);
+//    List<Post> findTop5ByDiaries_ScopeOrderByCreatedAtDesc(Scope scope);
 
 
 //    @Query("SELECT p FROM Post p JOIN p.diaries d WHERE d.title LIKE %:title% OR d.content LIKE %:content% OR d.country LIKE %:country%")
