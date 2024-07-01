@@ -34,4 +34,9 @@ public interface PostService {
 
     List<Post> getTop5RecentPosts();
 
+//
+//    Page<Post> getSearchInDiary(String word, int page);
+//
+//    Page<Post> getSearchInExpenseDetail(String word, int page);
+
 }

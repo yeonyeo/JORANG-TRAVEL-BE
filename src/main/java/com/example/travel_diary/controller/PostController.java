@@ -43,7 +43,7 @@ public class PostController {
         return postService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/public/{id}")
     public Post getById(@PathVariable(name = "id") Long id) {
         return postService.getById(id);
     }
@@ -93,4 +93,15 @@ public class PostController {
     public Page<Post> list(@AuthenticationPrincipal User user, @RequestParam(value="page", defaultValue="0") int page) {
         return this.postService.getList(user, page);
     }
+
+//    @GetMapping("/search/diary/{word}")
+//    public Page<Post> getSearchInDiary(@PathVariable(name = "word") String word, @RequestParam(value="page", defaultValue="0") int page) {
+//        return postService.getSearchInDiary(word, page);
+//    }
+//
+//    @GetMapping("/search/expense-detail/{word}")
+//    public Page<Post> getSearchInExpenseDetail(@PathVariable(name = "word") String word, @RequestParam(value="page", defaultValue="0") int page) {
+//        return postService.getSearchInExpenseDetail(word, page);
+//    }
+
 }

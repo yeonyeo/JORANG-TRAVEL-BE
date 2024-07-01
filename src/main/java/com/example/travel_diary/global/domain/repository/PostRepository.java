@@ -30,4 +30,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAllByUser(User user, Pageable pageable);
 
+//    List<Post> findTop5ByDiaries_ScopeOrderByCreatedAtDesc(Scope scope);
+
+
+//    @Query("SELECT p FROM Post p JOIN p.diaries d WHERE d.title LIKE %:title% OR d.content LIKE %:content% OR d.country LIKE %:country%")
+//    Page<Post> findAllByDiaryTitleOrContentOrCountryContaining(@Param("title") String title, @Param("content") String content, @Param("country") String country, Pageable pageable);
+
 }
+
+

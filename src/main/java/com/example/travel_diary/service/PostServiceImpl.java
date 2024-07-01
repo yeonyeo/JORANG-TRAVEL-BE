@@ -118,4 +118,20 @@ public class PostServiceImpl implements PostService {
     public List<Post> getTop5RecentPosts() {
         return postRepository.findTop5ByScopeAndIsPublishedOrderByCreatedAtDesc(Scope.PUBLIC, true);
     }
+
+
+//    @Override
+//    public Page<Post> getSearchInDiary(String word, int page) {
+//        List<Sort.Order> sorts = new ArrayList<>();
+//        sorts.add(Sort.Order.desc("createdAt"));
+//        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+//        return postRepository.findAllByDiaryTitleOrContentOrCountryContaining(word,word,word, pageable);
+//    }
+//
+//    @Override
+//    public Page<Post> getSearchInExpenseDetail(String word, int page) {
+//        return null;
+//    }
+
+
 }

@@ -57,6 +57,7 @@ public class ExpenseDetailController {
         return expenseDetailService.getExpenseDetailsByPostId(postId);
     }
 
+
 //@GetMapping("/by-post/{postId}")
 //public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable(name = "postId") Long postId) {
 //    // postId에 해당하는 모든 ExpenseDetails를 가져오는 구현
@@ -65,10 +66,7 @@ public class ExpenseDetailController {
 //@GetMapping("/by-post/{postId}")
 //public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable Long postId) {
 //    return expenseDetailService.getExpenseDetailsByPostId(postId);
-
-
-
-    @GetMapping("/postId/{postId}/chart")
+    @GetMapping("/chart/postId/{postId}")
     public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(@PathVariable("postId") Long postId) {
         return expenseDetailService.getExpenseDetailChart(postId);
     }
