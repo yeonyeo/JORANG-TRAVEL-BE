@@ -40,12 +40,10 @@ public class Expense {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Post post;
 
-
     @JsonManagedReference
     @OneToMany(mappedBy = "expense",cascade = CascadeType.ALL)
     private List<ExpenseDetail> expenseDetails;
     //set 지우고 /
     // enum scope
-
 
 }

@@ -4,4 +4,3 @@ public record ExpenseDetailByUserAndCountryResponseDto(
         String country, int cost
 ) {
 }
-
