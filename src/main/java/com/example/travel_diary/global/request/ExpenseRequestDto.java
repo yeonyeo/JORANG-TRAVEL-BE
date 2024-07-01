@@ -9,8 +9,6 @@ import java.util.UUID;
 
 public record ExpenseRequestDto (
     LocalDate date
-//    Long postId
-
 
 //    Long postId
 
@@ -21,9 +19,9 @@ public record ExpenseRequestDto (
 //        Post post = Post.builder().id(this.postId).build();
 
 
+
         return Expense.builder()
-                .date(this.date)
-                .post(post)
+                .date(date)
                 .build();
 
     }

@@ -1,5 +1,6 @@
 package com.example.travel_diary.global.domain.entity;
 
+import com.example.travel_diary.global.domain.type.Scope;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -32,6 +33,18 @@ public class Post {
     @Column(name = "LOVE")
     @Setter
     private int love;
+
+    @Column(name = "COUNTRY")
+    @Setter
+    private String country;
+
+    @Column(name = "SCOPE")
+    @Setter
+    private Scope scope;
+
+    @Column(name = "IS_PUBLISHED")
+    @Setter
+    private boolean isPublished;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
