@@ -9,6 +9,7 @@ public record ExpenseDetailResponseDto(
         Long id,
         int cost,
         String place,
+
         String category,
         LocalDateTime createdAt
 

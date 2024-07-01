@@ -4,4 +4,3 @@ public record ExpenseDetailByUserAndCountryResponseDto(
         int cost
 ) {
 }
-

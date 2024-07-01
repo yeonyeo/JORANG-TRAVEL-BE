@@ -12,9 +12,9 @@ import java.util.UUID;
 
 public interface LikeRepository extends JpaRepository<Like, Long> {
     Optional<Like> findByUser_IdAndPost_Id(UUID userId, Long postId);
-
+    Optional<Like> findByPost_Id(Long postId);
     void deleteByUser_IdAndPost_Id(UUID userId, Long postId);
-
+//    List<Like> findAllByUser(User user);
     List<Like> findAllByUserOrderByIdDesc(User user);
     Long countByPost_Id(Long postId);
 

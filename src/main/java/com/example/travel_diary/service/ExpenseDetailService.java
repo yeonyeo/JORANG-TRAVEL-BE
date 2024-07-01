@@ -10,12 +10,13 @@ import java.util.List;
 
 public interface ExpenseDetailService {
 
-    void saveExpenseDetail(ExpenseDetailRequestDto requestDto);
+    void saveExpenseDetailbyExpenseId(Long expenseId, List<ExpenseDetailRequestDto> requestDto);
+
 
     ExpenseDetailResponseDto getExpenseDetailById(Long id);
     void updateExpenseDetail(Long id, ExpenseDetailRequestDto requestDto);
     void deleteExpenseDetailById(Long id);
-//    List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(User user);
+    List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(User user);
 
     List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(Long postId);
 

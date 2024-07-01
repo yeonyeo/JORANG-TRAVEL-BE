@@ -7,7 +7,6 @@ import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.DiaryRepository;
 import com.example.travel_diary.global.exception.DiaryNotFoundException;
 import com.example.travel_diary.global.request.DiaryRequestDto;
-import com.example.travel_diary.global.response.MyDiaryResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +40,15 @@ public class DiaryServiceImpl implements DiaryService {
         return diaryRepository.findAllByPost_Id(postId);
     }
 
+
+    @Override
+    @Transactional
+    public void deleteDiaryById(Long id) {
+        Diary diary = diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
+        diaryRepository.deleteById(id);
+    }
+
+
     @Override
     @Transactional
     public void updateDiary(List<DiaryRequestDto> req) {
@@ -52,31 +60,6 @@ public class DiaryServiceImpl implements DiaryService {
             diary.setCreatedAt(LocalDateTime.now());
         });
 
-    }
-
-    @Override
-    @Transactional
-    public void deleteDiaryById(Long id) {
-        Diary diary = diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
-        diaryRepository.deleteById(id);
-    }
-
-//    @Override
-//    public List<String> getDiaryByUserAndCountry(User user) {
-//        List<Diary> allByPostUser = diaryRepository.findAllByPost_User(user);
-//        List<String> countryByUser = new ArrayList<>();
-//        for(Diary diary : allByPostUser) {
-//            if(!countryByUser.contains(diary.getCountry())) {
-//                countryByUser.add(diary.getCountry());
-//            }
-//        }
-//        return countryByUser;
-//    }
-
-    @Override
-    public List<MyDiaryResponseDto> getDiaryByUser(User user) {
-        List<Diary> allByPostUser = diaryRepository.findAllByPost_User(user);
-        return allByPostUser.stream().map(MyDiaryResponseDto::from).toList();
     }
 
 

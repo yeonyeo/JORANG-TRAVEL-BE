@@ -27,12 +27,10 @@ spring:
 #        project-id: titanium-vision-424101-s9
 #        bucket: jorang
 
-
-
 mail:
   sender: ksh58997941@gmail.com
   password: yctq gzba uorl gitm
 
 jwt:
   secret: asdfaasdpvhiashpdiorj490u2903412931avuyhguykg
-  expiration: 60000000 # 100 minutes
+  expiration: 6000000 # 100 minutes

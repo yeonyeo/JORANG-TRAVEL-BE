@@ -1,14 +1,21 @@
 package com.example.travel_diary.service;
 
 import com.example.travel_diary.global.domain.entity.Expense;
+import com.example.travel_diary.global.domain.entity.Post;
+import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.ExpenseRepository;
 import com.example.travel_diary.global.domain.repository.PostRepository;
 import com.example.travel_diary.global.request.ExpenseRequestDto;
+import com.example.travel_diary.global.response.ExpenseDetailByUserAndCountryResponseDto;
 import com.example.travel_diary.global.response.ExpenseResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,8 +24,6 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final PostRepository postRepository;
     @Transactional
     @Override
-
-
     public void saveExpense(Long postId,ExpenseRequestDto expenseRequestDto) {
 //expenseRequestDto.forEach(e -> expenseRepository.save(e.toEntity()));
 //        Post post = Post.builder().id(postId).build();
@@ -27,10 +32,10 @@ public class ExpenseServiceImpl implements ExpenseService {
         Expense expense = expenseRequestDto.toEntity(post);
 //        Expense savedExpense = expenseRepository.save(expense);
        expenseRepository.save(expense);
-
-   
-
     }
+
+    @Override
+    public List<Expense> getAllByPostId(Long postId){ return expenseRepository.findAllByPost_Id(postId);}
 
     @Override
     public ExpenseResponseDto getExpenseById(Long id){
@@ -58,7 +63,6 @@ public class ExpenseServiceImpl implements ExpenseService {
         );
         expenseRepository.deleteById(id);
     }
-
 
 //@Transactional지우다가뭔가 오류-> 실패->롤백하는게 목표
     //    @Override

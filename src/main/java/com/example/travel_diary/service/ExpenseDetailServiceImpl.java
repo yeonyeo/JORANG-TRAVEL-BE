@@ -25,7 +25,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     @Transactional
     @Override
 
-    public void saveExpenseDetailbyExpenseId( List<ExpenseDetailRequestDto> requestDto) {
+    public void saveExpenseDetailbyExpenseId(Long expenseId, List<ExpenseDetailRequestDto> requestDto) {
         requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
 //        expenseDetailRepository.save(requestDto.toEntity());
 
@@ -59,28 +59,16 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
         expenseDetailRepository.deleteById(id);
     }
 
-//    @Override
-//    public List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(User user) {
-//        List<ExpenseDetail> allAndPostUser = expenseDetailRepository.findAllByExpense_Post_User(user);
-//        List<String> countryByUser = new ArrayList<>(); // 초기화
-//        List<ExpenseDetailByUserAndCountryResponseDto> result = new ArrayList<>(); // 초기화
-//        int total = 0;
-//        for(ExpenseDetail expenseDetail : allAndPostUser) {
-//            if(!countryByUser.contains(expenseDetail.getCountry())) {
-//                countryByUser.add(expenseDetail.getCountry());
-//            }
-//        }
-//
-//        for(String country : countryByUser) {
-//            List<ExpenseDetail> allByCountryAndPostUser = expenseDetailRepository.findAllByCountryAndExpense_Post_User(country, user);
-//            total = 0;
-//            for(ExpenseDetail expenseDetail : allByCountryAndPostUser) {
-//                total += expenseDetail.getCost();
-//            }
-//            result.add(new ExpenseDetailByUserAndCountryResponseDto(country, total));
-//        }
-//        return result;
-//    }
+    @Override
+    public List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(User user) {
+        List<ExpenseDetail> allAndPostUser = expenseDetailRepository.findAllByExpense_Post_User(user);
+        List<String> countryByUser = new ArrayList<>(); // 초기화
+        List<ExpenseDetailByUserAndCountryResponseDto> result = new ArrayList<>(); // 초기화
+        int total = 0;
+
+
+        return result;
+    }
 
     @Override
     public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(Long postId) {
@@ -89,7 +77,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
                 .map(ExpenseDetailResponseDto::from)
                 .collect(Collectors.toList());
 
-
+    }
     @Override
     public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(Long postId) {
         List<ExpenseDetail> allByExpensePostId = expenseDetailRepository.findAllByExpense_Post_Id(postId);
