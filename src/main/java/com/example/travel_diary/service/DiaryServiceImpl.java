@@ -7,7 +7,6 @@ import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.DiaryRepository;
 import com.example.travel_diary.global.exception.DiaryNotFoundException;
 import com.example.travel_diary.global.request.DiaryRequestDto;
-import com.example.travel_diary.global.response.MyDiaryResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -41,17 +40,6 @@ public class DiaryServiceImpl implements DiaryService {
         return diaryRepository.findAllByPost_Id(postId);
     }
 
-    @Override
-    @Transactional
-    public void updateDiary(Long id, DiaryRequestDto req) {
-        Diary diary = diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
-        diary.setTitle(req.title());
-        diary.setContent(req.content());
-        diary.setScope(req.scope());
-        diary.setDate(req.date());
-        diary.setCountry(req.country().toLowerCase());
-        diary.setCreatedAt(LocalDateTime.now());
-    }
 
     @Override
     @Transactional
@@ -60,22 +48,18 @@ public class DiaryServiceImpl implements DiaryService {
         diaryRepository.deleteById(id);
     }
 
-    @Override
-    public List<String> getDiaryByUserAndCountry(User user) {
-        List<Diary> allByPostUser = diaryRepository.findAllByPost_User(user);
-        List<String> countryByUser = new ArrayList<>();
-        for(Diary diary : allByPostUser) {
-            if(!countryByUser.contains(diary.getCountry())) {
-                countryByUser.add(diary.getCountry());
-            }
-        }
-        return countryByUser;
-    }
 
     @Override
-    public List<MyDiaryResponseDto> getDiaryByUser(User user) {
-        List<Diary> allByPostUser = diaryRepository.findAllByPost_User(user);
-        return allByPostUser.stream().map(MyDiaryResponseDto::from).toList();
+    @Transactional
+    public void updateDiary(List<DiaryRequestDto> req) {
+        req.forEach(el -> {
+            Diary diary = diaryRepository.findById(el.id()).orElseThrow(DiaryNotFoundException::new);
+            diary.setTitle(el.title());
+            diary.setContent(el.content());
+            diary.setDate(el.date());
+            diary.setCreatedAt(LocalDateTime.now());
+        });
+
     }
 
 

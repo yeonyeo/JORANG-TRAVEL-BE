@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +24,14 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
 
     @Transactional
     @Override
-    public void saveExpenseDetail(ExpenseDetailRequestDto requestDto) {
-        expenseDetailRepository.save(requestDto.toEntity());
+
+    public void saveExpenseDetailByExpenseId(Long expenseId, List<ExpenseDetailRequestDto> requestDto) {
+        requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
+//        expenseDetailRepository.save(requestDto.toEntity());
+
+   // public void saveExpenseDetail(ExpenseDetailRequestDto requestDto) {
+     //   expenseDetailRepository.save(requestDto.toEntity());
+
     }
 
     @Override
@@ -42,8 +49,6 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
         expenseDetail.setCost(requestDto.cost());
         expenseDetail.setPlace(requestDto.place());
         expenseDetail.setCategory(requestDto.category());
-        expenseDetail.setScope(requestDto.scope());
-        expenseDetail.setCountry(requestDto.country());
     }
 
     @Transactional
@@ -60,23 +65,19 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
         List<String> countryByUser = new ArrayList<>(); // 초기화
         List<ExpenseDetailByUserAndCountryResponseDto> result = new ArrayList<>(); // 초기화
         int total = 0;
-        for(ExpenseDetail expenseDetail : allAndPostUser) {
-            if(!countryByUser.contains(expenseDetail.getCountry())) {
-                countryByUser.add(expenseDetail.getCountry());
-            }
-        }
 
-        for(String country : countryByUser) {
-            List<ExpenseDetail> allByCountryAndPostUser = expenseDetailRepository.findAllByCountryAndExpense_Post_User(country, user);
-            total = 0;
-            for(ExpenseDetail expenseDetail : allByCountryAndPostUser) {
-                total += expenseDetail.getCost();
-            }
-            result.add(new ExpenseDetailByUserAndCountryResponseDto(country, total));
-        }
+
         return result;
     }
 
+    @Override
+    public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(Long postId) {
+        List<ExpenseDetail> expenseDetails = expenseDetailRepository.findAllByExpense_Post_Id(postId);
+        return expenseDetails.stream()
+                .map(ExpenseDetailResponseDto::from)
+                .collect(Collectors.toList());
+
+    }
     @Override
     public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(Long postId) {
         List<ExpenseDetail> allByExpensePostId = expenseDetailRepository.findAllByExpense_Post_Id(postId);
@@ -108,5 +109,6 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
             result.add(new ExpenseDetailChartResponseDto(dto.cost(), total, dto.category(), percent));
         }
         return result;
+
     }
 }

@@ -19,8 +19,6 @@ public record ExpenseDetailRequestDto(
                 .cost(cost)
                 .place(place)
                 .category(category)
-                .scope(scope)
-                .country(country)
                 .createdAt(LocalDateTime.now())
                 .expense(expense)
                 .build();
