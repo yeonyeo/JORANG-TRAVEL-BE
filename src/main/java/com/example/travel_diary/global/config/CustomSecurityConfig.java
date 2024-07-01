@@ -26,7 +26,7 @@ public class CustomSecurityConfig {
             corsConfiguration.addAllowedHeader("*");
             corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","OPTIONS"));
 //            corsConfiguration.setAllowedOrigins(List.of("*"));
-            corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8002", "http://localhost:8003", "http://localhost:8004", "http://localhost:8005"));
+            corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8000"));
 
 //            corsConfiguration.setAllowCredentials(true);
             return corsConfiguration;
@@ -46,7 +46,11 @@ public class CustomSecurityConfig {
                                 "/api/v1/posts/top5/like",
                                 "/api/v1/posts/top5/diaries",
                                 "/api/v1/posts/recent",
-                                "api/v1/country/**"
+                                "api/v1/country/**",
+                                "/api/v1/auths/loginId/**",
+                                "/api/v1/auths/email/**",
+                                "/api/v1/auths/findLoginId",
+                                "/api/v1/auths/findPassword"
                                 )
                         .permitAll()
                         .anyRequest()

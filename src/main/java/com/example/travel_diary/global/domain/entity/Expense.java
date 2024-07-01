@@ -1,6 +1,7 @@
 package com.example.travel_diary.global.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +27,6 @@ public class Expense {
     @Column(name = "EXPENSE_ID")
     private Long id;
 // 타이틀
-
     @Column( name = "DATE")
     @Setter
     private LocalDate date;
@@ -36,4 +36,8 @@ public class Expense {
     @ManyToOne
     private Post post;
 
+//    @JsonManagedReference
+//    @JoinColumn (name = "EXPENSE_DETAIL_ID")
+//    @OneToMany
+//    private ExpenseDetail expenseDetail;
 }
