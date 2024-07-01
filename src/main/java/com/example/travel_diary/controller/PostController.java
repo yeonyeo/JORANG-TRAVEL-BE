@@ -37,7 +37,7 @@ public class PostController {
         postService.update(id, title);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Post> getAll() {
         return postService.getAll();
     }
