@@ -3,7 +3,6 @@ package com.example.travel_diary.controller;
 import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.request.DiaryRequestDto;
-import com.example.travel_diary.global.response.MyDiaryResponseDto;
 import com.example.travel_diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -47,11 +46,5 @@ public class DiaryController {
     public List<String> getDiaryByUserAndCountry(@AuthenticationPrincipal User user) {
         return diaryService.getDiaryByUserAndCountry(user);
     }
-
-    @GetMapping("/mydiary")
-    public List<MyDiaryResponseDto> getDiaryByUser(@AuthenticationPrincipal User user) {
-        return diaryService.getDiaryByUser(user);
-    }
-
 
 }

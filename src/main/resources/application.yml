@@ -10,12 +10,10 @@ spring:
       ddl-auto: update
     show-sql: true
 
-
-
 mail:
   sender: ksh58997941@gmail.com
   password: yctq gzba uorl gitm
 
 jwt:
   secret: asdfaasdpvhiashpdiorj490u2903412931avuyhguykg
-  expiration: 60000000 # 100 minutes
+  expiration: 6000000 # 100 minutes

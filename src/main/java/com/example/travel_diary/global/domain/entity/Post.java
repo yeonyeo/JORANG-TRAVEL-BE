@@ -42,7 +42,7 @@ public class Post {
     private List<Diary> diaries;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Expense> expenses;
 
     @JsonBackReference

@@ -5,14 +5,15 @@ import com.example.travel_diary.global.domain.entity.Diary;
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.DiaryRepository;
-import com.example.travel_diary.global.exception.DiaryNotFoundException;
 import com.example.travel_diary.global.request.DiaryRequestDto;
-import com.example.travel_diary.global.response.MyDiaryResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class DiaryServiceImpl implements DiaryService {
 
     @Override
     public Diary getById(Long id) {
-        return diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
+        return diaryRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     @Transactional
     public void updateDiary(Long id, DiaryRequestDto req) {
-        Diary diary = diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
+        Diary diary = diaryRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         diary.setTitle(req.title());
         diary.setContent(req.content());
         diary.setScope(req.scope());
@@ -56,7 +57,6 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     @Transactional
     public void deleteDiaryById(Long id) {
-        Diary diary = diaryRepository.findById(id).orElseThrow(DiaryNotFoundException::new);
         diaryRepository.deleteById(id);
     }
 
@@ -70,12 +70,6 @@ public class DiaryServiceImpl implements DiaryService {
             }
         }
         return countryByUser;
-    }
-
-    @Override
-    public List<MyDiaryResponseDto> getDiaryByUser(User user) {
-        List<Diary> allByPostUser = diaryRepository.findAllByPost_User(user);
-        return allByPostUser.stream().map(MyDiaryResponseDto::from).toList();
     }
 
 

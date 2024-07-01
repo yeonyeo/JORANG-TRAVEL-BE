@@ -5,8 +5,6 @@ import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.ExpenseDetailRepository;
 import com.example.travel_diary.global.request.ExpenseDetailRequestDto;
 import com.example.travel_diary.global.response.ExpenseDetailByUserAndCountryResponseDto;
-import com.example.travel_diary.global.response.ExpenseDetailChartResponseDto;
-import com.example.travel_diary.global.response.ExpenseDetailChartTempResponseDto;
 import com.example.travel_diary.global.response.ExpenseDetailResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +22,8 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
 
     @Transactional
     @Override
-
     public void saveExpenseDetailbyExpenseId( List<ExpenseDetailRequestDto> requestDto) {
         requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
-//        expenseDetailRepository.save(requestDto.toEntity());
-
-   // public void saveExpenseDetail(ExpenseDetailRequestDto requestDto) {
-     //   expenseDetailRepository.save(requestDto.toEntity());
 
     }
 
@@ -83,13 +76,13 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
         }
         return result;
     }
-
     @Override
     public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(Long postId) {
         List<ExpenseDetail> expenseDetails = expenseDetailRepository.findAllByExpense_Post_Id(postId);
         return expenseDetails.stream()
                 .map(ExpenseDetailResponseDto::from)
                 .collect(Collectors.toList());
+
 
 
     @Override
