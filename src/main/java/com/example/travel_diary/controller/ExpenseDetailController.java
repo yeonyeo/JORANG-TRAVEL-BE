@@ -20,11 +20,11 @@ import java.util.List;
 public class ExpenseDetailController {
     private final ExpenseDetailService expenseDetailService;
 
-    @PostMapping("/expenses/{expenseId}")
+    @PostMapping("expenses/{expenseId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveExpenseDetailbyExpenseId( @PathVariable Long expenseId ,@RequestBody List<ExpenseDetailRequestDto> requestDto) {
+    public void saveExpenseDetailbyExpenseId( @PathVariable("expenseId") Long expenseId ,@RequestBody List<ExpenseDetailRequestDto> requestDto) {
 
-        expenseDetailService.saveExpenseDetailbyExpenseId(expenseId,requestDto);
+        expenseDetailService.saveExpenseDetailbyExpenseId(expenseId ,requestDto);
     }
 
 
