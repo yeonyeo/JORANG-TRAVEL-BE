@@ -42,7 +42,7 @@ public class PostController {
         return postService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/public/{id}")
     public Post getById(@PathVariable(name = "id") Long id) {
         return postService.getById(id);
     }
@@ -98,4 +98,9 @@ public class PostController {
 //        return postService.getSearchInExpenseDetail(word, page);
 //    }
 
+
+    @GetMapping("/my/{id}")
+    public Post getMyPostById(@AuthenticationPrincipal User user, @PathVariable(name = "id") Long id) {
+        return postService.getMyPostById(user, id);
+    }
 }

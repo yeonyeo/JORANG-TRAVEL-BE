@@ -34,5 +34,5 @@ public interface PostService {
 //    Page<Post> getSearchInDiary(String word, int page);
 //
 //    Page<Post> getSearchInExpenseDetail(String word, int page);
-
+Post getMyPostById(User user, Long id);
 }

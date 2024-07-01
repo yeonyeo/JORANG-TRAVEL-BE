@@ -111,6 +111,11 @@ public class PostServiceImpl implements PostService {
         return postRepository.findTop5ByDiaries_ScopeOrderByCreatedAtDesc(Scope.PUBLIC);
     }
 
+    @Override
+    public Post getMyPostById(User user, Long id) {
+        return postRepository.findById(id).orElseThrow(PostNotFoundException::new);
+    }
+
 //    @Override
 //    public Page<Post> getSearchInDiary(String word, int page) {
 //        List<Sort.Order> sorts = new ArrayList<>();

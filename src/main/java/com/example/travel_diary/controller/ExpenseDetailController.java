@@ -45,7 +45,7 @@ public class ExpenseDetailController {
         return expenseDetailService.getExpenseDetailByUserAndCountry(user);
     }
 
-    @GetMapping("/postId/{postId}/chart")
+    @GetMapping("/chart/postId/{postId}")
     public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(@PathVariable("postId") Long postId) {
         return expenseDetailService.getExpenseDetailChart(postId);
     }
