@@ -24,7 +24,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     @Override
     public void saveExpenseDetailbyExpenseId( List<ExpenseDetailRequestDto> requestDto) {
         requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
-//        expenseDetailRepository.save(requestDto.toEntity());
+
     }
 
     @Override
@@ -82,5 +82,40 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
         return expenseDetails.stream()
                 .map(ExpenseDetailResponseDto::from)
                 .collect(Collectors.toList());
+
+
+
+    @Override
+    public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(Long postId) {
+        List<ExpenseDetail> allByExpensePostId = expenseDetailRepository.findAllByExpense_Post_Id(postId);
+        List<String> getCategory = new ArrayList<>(); // 초기화
+        List<ExpenseDetailChartTempResponseDto> temp = new ArrayList<>();
+        List<ExpenseDetailChartResponseDto> result = new ArrayList<>(); // 초기화
+        int totalByCategory = 0;
+        int total = 0;
+        double percent = 0;
+
+        for(ExpenseDetail expenseDetail : allByExpensePostId) {
+            if(!getCategory.contains(expenseDetail.getCategory())){
+                getCategory.add(expenseDetail.getCategory());
+            }
+        }
+        for(String category : getCategory) {
+            List<ExpenseDetail> allByCategoryAndExpensePostId = expenseDetailRepository.findAllByCategoryAndExpense_Post_Id(category, postId);
+            totalByCategory = 0;
+            for(ExpenseDetail expenseDetail : allByCategoryAndExpensePostId) {
+                totalByCategory += expenseDetail.getCost();
+                total += expenseDetail.getCost();
+            }
+            temp.add(new ExpenseDetailChartTempResponseDto(totalByCategory, category));
+        }
+
+        for(ExpenseDetailChartTempResponseDto dto : temp) {
+            percent = Double.parseDouble(String.format("%.2f",(double) dto.cost() /total)) * 100;
+
+            result.add(new ExpenseDetailChartResponseDto(dto.cost(), total, dto.category(), percent));
+        }
+        return result;
+
     }
 }

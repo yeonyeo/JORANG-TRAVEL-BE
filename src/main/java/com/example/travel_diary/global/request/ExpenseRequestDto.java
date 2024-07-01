@@ -12,10 +12,17 @@ public record ExpenseRequestDto (
 //    Long postId
 
 
+//    Long postId
+
+
 
     ){
     public Expense toEntity(Post post){
 //        Post post = Post.builder().id(this.postId).build();
+
+
+
+    ){
         return Expense.builder()
                 .date(this.date)
                 .post(post)

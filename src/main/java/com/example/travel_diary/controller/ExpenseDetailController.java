@@ -24,6 +24,13 @@ public class ExpenseDetailController {
     public void saveExpenseDetailbyExpenseId( @RequestBody List<ExpenseDetailRequestDto> requestDto) {
 
         expenseDetailService.saveExpenseDetailbyExpenseId(requestDto);
+
+    public void saveExpenseDetail(@RequestBody ExpenseDetailRequestDto requestDto) {
+        expenseDetailService.saveExpenseDetail(requestDto);
+
+    }
+
+        expenseDetailService.saveExpenseDetailbyExpenseId(requestDto);
     }
 //("/expenses/{expenseId}")
     @PutMapping("/{id}")
@@ -47,6 +54,8 @@ public class ExpenseDetailController {
     public List<ExpenseDetailByUserAndCountryResponseDto> getExpenseDetailByUserAndCountry(@AuthenticationPrincipal User user) {
         return expenseDetailService.getExpenseDetailByUserAndCountry(user);
     }
+
+
     @GetMapping("/by-post/{postId}")
     public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable (name="postId") Long postId) {
         return expenseDetailService.getExpenseDetailsByPostId(postId);
@@ -61,4 +70,13 @@ public class ExpenseDetailController {
 //@GetMapping("/by-post/{postId}")
 //public List<ExpenseDetailResponseDto> getExpenseDetailsByPostId(@PathVariable Long postId) {
 //    return expenseDetailService.getExpenseDetailsByPostId(postId);
+
+
+
+    @GetMapping("/postId/{postId}/chart")
+    public List<ExpenseDetailChartResponseDto> getExpenseDetailChart(@PathVariable("postId") Long postId) {
+        return expenseDetailService.getExpenseDetailChart(postId);
+    }
+}
+
 

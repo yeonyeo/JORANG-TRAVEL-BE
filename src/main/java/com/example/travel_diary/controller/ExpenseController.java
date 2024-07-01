@@ -22,6 +22,8 @@ public class ExpenseController {
         expenseService.saveExpense(postId,expenseRequestDto);
     }
 
+
+
     @PutMapping("/update/{id}")
     public Expense update(@PathVariable(name = "id") Long id, @RequestBody ExpenseRequestDto req) {
         return expenseService.updateExpense(id, req);
