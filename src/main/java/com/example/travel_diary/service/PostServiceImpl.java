@@ -4,6 +4,7 @@ import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.repository.PostRepository;
 import com.example.travel_diary.global.domain.type.Scope;
+import com.example.travel_diary.global.exception.PostNotPublicException;
 
 import com.example.travel_diary.global.exception.PostNotFoundException;
 import jakarta.transaction.Transactional;
@@ -28,7 +29,6 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     // 여행 일지 작성 누르면 바로 post id를 생성 시킴, 업데이트도 작성일자만 갱신
-
     @Override
     @Transactional
     public Long createPost(@AuthenticationPrincipal User user) {
@@ -58,6 +58,14 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post getById(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
+        if(!post.getScope().equals(Scope.PUBLIC)) throw new PostNotPublicException();
+        return post;
+    }
+
+    @Override
+    public Post getMyPostById(User user, Long id) {
+
         return postRepository.findById(id).orElseThrow(PostNotFoundException::new);
     }
 
@@ -111,4 +119,20 @@ public class PostServiceImpl implements PostService {
     public List<Post> getTop5RecentPosts() {
         return postRepository.findTop5ByScopeOrderByCreatedAtDesc(Scope.PUBLIC);
     }
+
+
+//    @Override
+//    public Page<Post> getSearchInDiary(String word, int page) {
+//        List<Sort.Order> sorts = new ArrayList<>();
+//        sorts.add(Sort.Order.desc("createdAt"));
+//        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+//        return postRepository.findAllByDiaryTitleOrContentOrCountryContaining(word,word,word, pageable);
+//    }
+//
+//    @Override
+//    public Page<Post> getSearchInExpenseDetail(String word, int page) {
+//        return null;
+//    }
+
+
 }

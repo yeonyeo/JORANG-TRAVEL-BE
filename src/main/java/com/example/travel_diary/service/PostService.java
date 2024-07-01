@@ -31,4 +31,10 @@ public interface PostService {
 
     List<Post> getTop5RecentPosts();
 
+    Post getMyPostById(User user, Long id);
+//
+//    Page<Post> getSearchInDiary(String word, int page);
+//
+//    Page<Post> getSearchInExpenseDetail(String word, int page);
+
 }

@@ -189,7 +189,6 @@ class PostServiceImplTest {
 //        List<Post> top5LikeOnThisWeek = postService.getTop5LikeOnThisWeek();
 //        assertEquals(1, top5LikeOnThisWeek.size());
 //        assertEquals(0,top5LikeOnThisWeek.get(0).getLove());
-
     }
 
     @Test

@@ -9,8 +9,12 @@ import java.time.LocalDateTime;
 public record ExpenseDetailRequestDto(
         int cost,
         String place,
+
         String category
+
+
 //        Expense expense
+
 ) {
     public ExpenseDetail toEntity(Expense expense) {
         return ExpenseDetail.builder()

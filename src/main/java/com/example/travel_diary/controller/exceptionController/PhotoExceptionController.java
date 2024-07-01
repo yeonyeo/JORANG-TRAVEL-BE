@@ -7,18 +7,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class PostExceptionController {
+public class PhotoExceptionController {
 
-
-//    @ExceptionHandler(PostNotFoundException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public String postNotFoundExceptionHandler(PostNotFoundException e) {
-//        return e.getMessage();
-//    }
-
-    @ExceptionHandler(PostNotFoundException.class)
+    @ExceptionHandler(PhotoLimitExceededException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String postNotFoundExceptionHandler(PostNotFoundException e) {
+    public String photoLimitExceededExceptionHandler(PhotoLimitExceededException e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(PhotoNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String photoNotFoundExceptionHandler(PhotoNotFoundException e) {
         return e.getMessage();
     }
 

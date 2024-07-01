@@ -1,4 +1,6 @@
 package com.example.travel_diary.global.domain.repository;
+
+
 import com.example.travel_diary.global.domain.entity.Post;
 import com.example.travel_diary.global.domain.entity.User;
 import com.example.travel_diary.global.domain.type.Scope;
@@ -58,7 +60,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAllByUser(User user, Pageable pageable);
 
+
     List<Post> findTop5ByScopeOrderByCreatedAtDesc(Scope scope);
 
+
 }
+
 

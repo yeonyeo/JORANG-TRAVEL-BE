@@ -24,7 +24,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final PostRepository postRepository;
     @Transactional
     @Override
+
     public long saveExpense(Long postId,ExpenseRequestDto expenseRequestDto) {
+
 //expenseRequestDto.forEach(e -> expenseRepository.save(e.toEntity()));
 //        Post post = Post.builder().id(postId).build();
 //        Expense expense = expenseRequestDto.toEntity(post);
@@ -32,6 +34,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         Expense expense = expenseRequestDto.toEntity(post);
 //        Expense savedExpense = expenseRepository.save(expense);
        expenseRepository.save(expense);
+
        return expense.getId();
     }
 

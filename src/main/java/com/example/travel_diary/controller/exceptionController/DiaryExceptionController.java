@@ -7,18 +7,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class PostExceptionController {
+public class DiaryExceptionController {
 
-
-//    @ExceptionHandler(PostNotFoundException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public String postNotFoundExceptionHandler(PostNotFoundException e) {
-//        return e.getMessage();
-//    }
-
-    @ExceptionHandler(PostNotFoundException.class)
+    @ExceptionHandler(DiaryNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String postNotFoundExceptionHandler(PostNotFoundException e) {
+    public String diaryNotFoundExceptionHandler(DiaryNotFoundException e) {
         return e.getMessage();
     }
 

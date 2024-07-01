@@ -27,7 +27,6 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
 
     @Transactional
     @Override
-
     public void saveExpenseDetailbyExpenseId(Long expenseId, List<ExpenseDetailRequestDto> requestDto) {
         Expense expense = expenseRepository.findById(expenseId).orElseThrow(EntityNotFoundException::new);
         List<ExpenseDetail> expenseDetails = requestDto.stream()
@@ -35,6 +34,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
                 .collect(Collectors.toList());
         expenseDetailRepository.saveAll(expenseDetails);
 //        requestDto.forEach(e -> expenseDetailRepository.save(e.toEntity()));
+
 //        expenseDetailRepository.save(requestDto.toEntity());
 
    // public void saveExpenseDetail(ExpenseDetailRequestDto requestDto) {
