@@ -49,7 +49,7 @@ public class PostController {
     }
 
     @GetMapping("/my/{id}")
-    public Post getMyPostById(@AuthenticationPrincipal User user, Long id) {
+    public Post getMyPostById(@AuthenticationPrincipal User user, @PathVariable(name = "id") Long id) {
         return postService.getMyPostById(user, id);
     }
 
