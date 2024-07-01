@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class ExpenseDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EXPENSE_DETAILS_ID")
+    @Column(name = "EXPENSE_DETAIL_ID")
     private Long id;
 
     @Column(name = "COST")
@@ -45,6 +45,6 @@ public class ExpenseDetail {
 
     @JsonBackReference
     @JoinColumn(name = "EXPENSE_ID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Expense expense;
 }

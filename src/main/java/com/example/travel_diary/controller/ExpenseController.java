@@ -8,29 +8,35 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/expenses")
 @RequiredArgsConstructor
 public class ExpenseController {
     private final ExpenseService expenseService;
 
-    @PostMapping
+    @PostMapping("/posts/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody ExpenseRequestDto req) {
-        expenseService.saveExpense(req);
+    public void save(@PathVariable(name = "postId") Long postId,@RequestBody ExpenseRequestDto expenseRequestDto) {
+        expenseService.saveExpense(postId,expenseRequestDto);
     }
+
     @PutMapping("/update/{id}")
     public Expense update(@PathVariable(name = "id") Long id, @RequestBody ExpenseRequestDto req) {
         return expenseService.updateExpense(id, req);
     }
+    @GetMapping("/{postId}")
+    public List<Expense> getAllByPostId(@PathVariable Long postId) {return expenseService.getAllByPostId(postId);
+
+    }
     @GetMapping("/{id}")
-    public ExpenseResponseDto getExpenseById(@PathVariable(name = "id") Long id) {
+    public ExpenseResponseDto getExpenseById(@PathVariable Long id) {
         return expenseService.getExpenseById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteExpenseById(@PathVariable(name = "id") Long id) {
+    public void deleteExpenseById(@PathVariable Long id) {
         expenseService.deleteExpenseById(id);
     }
 }
-

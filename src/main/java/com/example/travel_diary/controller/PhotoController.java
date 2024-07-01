@@ -2,8 +2,7 @@
 //
 //import com.example.travel_diary.global.domain.entity.Photo;
 //import com.example.travel_diary.global.request.PhotoRequestDto;
-//
-//import com.example.travel_diary.service.PhotoService;
+
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.web.bind.annotation.*;
@@ -17,31 +16,36 @@
 //public class PhotoController {
 //    private final PhotoService photoService;
 //
-//
+
 //    @PostMapping("/diary/{diaryId}")
+
 //    @ResponseStatus(HttpStatus.CREATED)
-//    public void insert(@RequestBody PhotoRequestDto req, @PathVariable(name = "diaryId") Long diaryId) throws IOException {
+//    public void insert(@RequestBody PhotoRequestDto req, @PathVariable Long diaryId) throws IOException {
 //        photoService.insert(req, diaryId);
 //    }
 //
 //    @GetMapping("/{id}")
-//    public Photo getById(@PathVariable(name = "id") Long id) {
+//    public Photo getById(@PathVariable Long id) {
 //        return photoService.getById(id);
 //    }
 //
+
+//    @GetMapping("/diary/{diaryId}")
+
 //    @GetMapping("/diaries/{diaryId}")
-//    public List<Photo> getByDiaryId(@PathVariable(name = "diaryId") Long diaryId) {
+
+//    public List<Photo> getByDiaryDetailId(@PathVariable Long diaryId) {
 //        return photoService.getByDiaryId(diaryId);
 //    }
 //
 //    @PutMapping("/{id}")
-//    public void update(@PathVariable(name = "id") Long id, @RequestBody String path) throws IOException {
+//    public void update(@PathVariable Long id, @RequestBody String path) throws IOException {
 //        photoService.update(id, path);
 //    }
 //
 //    @DeleteMapping("/{id}")
-//    public void deleteById(@PathVariable(name = "id") Long id) {
+//    public void deleteById(@PathVariable Long id) {
 //        photoService.deleteById(id);
 //    }
 //}
-//
+
