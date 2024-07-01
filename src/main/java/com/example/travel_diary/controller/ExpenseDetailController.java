@@ -22,9 +22,9 @@ public class ExpenseDetailController {
 
     @PostMapping("/expenses/{expenseId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveExpenseDetailbyExpenseId( @PathVariable Long expenseId ,@RequestBody List<ExpenseDetailRequestDto> requestDto) {
+    public void saveExpenseDetailByExpenseId( @PathVariable Long expenseId ,@RequestBody List<ExpenseDetailRequestDto> requestDto) {
 
-        expenseDetailService.saveExpenseDetailbyExpenseId(expenseId,requestDto);
+        expenseDetailService.saveExpenseDetailByExpenseId(expenseId,requestDto);
     }
 
 
